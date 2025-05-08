@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoginRegistration.MainPage"
+             BackgroundColor="#111216">
+
+    <VerticalStackLayout Padding="25,25,25,25">
+        <Image
+        Source="logo.png"
+        Aspect="AspectFit"
+        HeightRequest="108"
+        WidthRequest="104"
+        HorizontalOptions="Center"/>
+        <Label
+        Text="Welcome"
+        FontFamily="OpenSansSemibold"
+        FontSize="36"
+        HorizontalOptions="Center"
+        TextColor="White"
+        />
+        <Label
+        Text="Login to your account"
+        FontSize="13"
+        HorizontalOptions="Center"
+        TextColor="White"/>
+        <Grid HeightRequest="193" Margin="0, 40, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="139"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <VerticalStackLayout Spacing="15" >
+                <Frame
+                BackgroundColor="#1F1E29"
+                HeightRequest="55"
+                CornerRadius="5"
+                
+                Padding="0"
+                BorderColor="Transparent"
+                Margin="0"
+                >
+                    <HorizontalStackLayout Spacing="10">
+                        <Label
+                        FontFamily="FontelloFamily"
+                        Text="&#xE801;"
+                        FontSize="16"
+                        WidthRequest="61"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        TextColor="White"/>
+
+                        <Entry
+                        x:Name="txtUsername"
+                        PlaceholderColor="#666666"
+                        HeightRequest="55"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="White"
+                        FontSize="12"
+                        Margin="-10, 0, 0, 0"
+                        Placeholder="Username"/>
+                    </HorizontalStackLayout>
+                </Frame>
+                <Frame
+                BackgroundColor="#1F1E29"
+                HeightRequest="55"
+                CornerRadius="5"
+                HorizontalOptions="FillAndExpand"
+                Padding="0"
+                BorderColor="Transparent"
+                Margin="0"
+                >
+                    <HorizontalStackLayout Spacing="10">
+                        <Label
+                        FontFamily="FontelloFamily"
+                        Text="&#xE800;"
+                        FontSize="16"
+                        WidthRequest="61"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        TextColor="White"/>
+
+                        <Entry
+                        x:Name="txtPassword"
+                        PlaceholderColor="#666666"
+                        HeightRequest="55"
+                        HorizontalOptions="Fill"
+                        TextColor="White"
+                        IsPassword="True"
+                        FontSize="12"
+                        Margin="-10, 0, 0, 0"
+                        Placeholder="Password"/>
+
+                    </HorizontalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+            <Grid Grid.Row="1" HeightRequest="50" ColumnDefinitions="*, Auto" Margin="0">
+
+                <Label 
+                Text="Forgot Password?" 
+                FontSize="12"
+                VerticalOptions="Center"
+                TextColor="White"
+                Grid.Column="0"/>
+
+                <Button 
+                WidthRequest="130" 
+            
+                FontSize="12" 
+                Text="Login"
+                TextColor="White"
+                BackgroundColor="#ff4654"
+                CornerRadius="5"
+                Clicked="Button_Clicked"
+                Grid.Column="1"/>
+
+            </Grid>
+        </Grid>
+        <HorizontalStackLayout Margin="0, 80, 0,0" HorizontalOptions="Center">
+            <Label
+        Text="Create an acount"
+        TextTransform="Uppercase"
+        TextDecorations="Underline"
+        FontFamily="OpenSansSemibold"
+        FontSize="24"
+        TextColor="White"
+        >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+
+</ContentPage>
