@@ -5,7 +5,7 @@
              Title="Registration"
              BackgroundColor="#111216">
     
-    <VerticalStackLayout Spacing="30" Padding="25,50,25,25">
+    <VerticalStackLayout Spacing="30" Padding="25,50,25,25" VerticalOptions="Center">
         <HorizontalStackLayout Spacing="20" VerticalOptions="Center">
             <Image
              Source="logo.png"
