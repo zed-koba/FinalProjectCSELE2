@@ -33,7 +33,6 @@
                 BackgroundColor="#1F1E29"
                 HeightRequest="55"
                 CornerRadius="5"
-                
                 Padding="0"
                 BorderColor="Transparent"
                 Margin="0">
@@ -111,7 +110,7 @@
         </Grid>
         <HorizontalStackLayout Margin="0, 80, 0,0" HorizontalOptions="Center">
             <Label
-                Text="Create an acount"
+                Text="Create an account"
                 TextTransform="Uppercase"
                 TextDecorations="Underline"
                 FontFamily="OpenSansSemibold"
