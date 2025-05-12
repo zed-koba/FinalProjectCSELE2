@@ -14,7 +14,7 @@ namespace LoginRegistration.ViewModel
 {
     public class AuthenticationViewModel
     {
-        private readonly string apiAddress = "https://680741b5e81df7060eb96632.mockapi.io/api/labUsers/UserDetails";
+        private readonly string apiAddress = "https://6821fa55b342dce8004c96f3.mockapi.io/UserDetails";
         private readonly HttpClient _client;
         private AuthenticationModel getUser { get; set; } = new();
         #region Commands
@@ -48,6 +48,31 @@ namespace LoginRegistration.ViewModel
                 {
                     _getPassword = value;
                     OnPropertyChanged(GetPassword);
+                }
+            }
+        }
+
+        public string GetFullName
+        {
+            get => _getFullName;
+            set
+            {
+                if(_getFullName != value)
+                {
+                    _getFullName = value;
+                    OnPropertyChanged(_getFullName);
+                }
+            }
+        }
+        public string GetEmailAddress
+        {
+            get => _getEmailAdd;
+            set
+            {
+                if(_getEmailAdd != value)
+                {
+                    _getEmailAdd = value;
+                    OnPropertyChanged(_getEmailAdd);
                 }
             }
         }
