@@ -30,17 +30,17 @@
             </Grid.RowDefinitions>
             <VerticalStackLayout Spacing="15" >
                 <Frame
-                BackgroundColor="#1E1E23"
-                HeightRequest="55"
-                CornerRadius="12"
-                Padding="0"
-                BorderColor="Transparent"
-                Margin="0">
-                    <HorizontalStackLayout Spacing="10">
+                    BackgroundColor="#1F1E29"
+                    HeightRequest="55"
+                    CornerRadius="12"
+                    Padding="0"
+                    BorderColor="Transparent"
+                    Margin="0">
+                    <Grid ColumnDefinitions="51, *" Padding="0">
                         <Label
                         FontFamily="FontelloFamily"
                         Text="&#xE801;"
-                        FontSize="24"
+                        FontSize="16"
                         WidthRequest="61"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center"
@@ -52,15 +52,15 @@
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
                         TextColor="White"
-                        FontSize="14"
+                        FontSize="12"
                         Margin="-10, 0, 0, 0"
                         Placeholder="Username"/>
                     </HorizontalStackLayout>
                 </Frame>
                 <Frame
-                BackgroundColor="#1E1E23"
+                BackgroundColor="#1F1E29"
                 HeightRequest="55"
-                CornerRadius="12"
+                CornerRadius="5"
                 HorizontalOptions="FillAndExpand"
                 Padding="0"
                 BorderColor="Transparent"
@@ -69,7 +69,7 @@
                         <Label
                         FontFamily="FontelloFamily"
                         Text="&#xE800;"
-                        FontSize="24"
+                        FontSize="16"
                         WidthRequest="61"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center"
@@ -82,11 +82,11 @@
                         HorizontalOptions="Fill"
                         TextColor="White"
                         IsPassword="True"
-                        FontSize="14"
+                        FontSize="12"
                         Margin="-10, 0, 0, 0"
                         Placeholder="Password"/>
 
-                    </HorizontalStackLayout>
+                    </Grid>
                 </Frame>
             </VerticalStackLayout>
             <FlexLayout Grid.Row="1" Margin="0" JustifyContent="SpaceBetween" Padding="5,0,0,0">
@@ -101,8 +101,8 @@
                     FontSize="14" 
                     Text="Login"
                     TextColor="White"
-                    BackgroundColor="#FB3137"
-                    CornerRadius="12"
+                    BackgroundColor="#ff4654"
+                    CornerRadius="5"
                     Clicked="Button_Clicked"
                     />
 
