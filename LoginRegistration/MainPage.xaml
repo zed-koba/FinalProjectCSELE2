@@ -30,64 +30,67 @@
             </Grid.RowDefinitions>
             <VerticalStackLayout Spacing="15" >
                 <Frame
-                BackgroundColor="#1F1E29"
-                HeightRequest="55"
-                CornerRadius="5"
-                
-                Padding="0"
-                BorderColor="Transparent"
-                Margin="0">
-                    <HorizontalStackLayout Spacing="10">
+                    BackgroundColor="#1F1E29"
+                    HeightRequest="55"
+                    CornerRadius="12"
+                    Padding="0"
+                    BorderColor="Transparent"
+                    Margin="0">
+                    <Grid ColumnDefinitions="51, *" Padding="0">
                         <Label
-                        FontFamily="FontelloFamily"
-                        Text="&#xE801;"
-                        FontSize="16"
-                        WidthRequest="61"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        TextColor="White"/>
-
+                            Grid.Column="0"
+                            FontFamily="FontelloFamily"
+                            Text="&#xE801;"
+                            FontSize="16"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"    
+                            TextColor="White"/>
                         <Entry
-                        x:Name="txtUsername"
-                        PlaceholderColor="#666666"
-                        HeightRequest="55"
-                        HorizontalOptions="FillAndExpand"
-                        TextColor="White"
-                        FontSize="12"
-                        Margin="-10, 0, 0, 0"
-                        Placeholder="Username"/>
-                    </HorizontalStackLayout>
+                            Grid.Column="1"
+                            x:Name="txtUsername"
+                            PlaceholderColor="#666666"
+                            HeightRequest="55"
+                            HorizontalOptions="Fill"
+                            TextColor="White"
+                            Text="{Binding GetUsername}"
+                            Margin="-10,0,0,0"
+                            FontSize="12"
+                            Placeholder="Username"/>
+                    </Grid>
                 </Frame>
                 <Frame
-                BackgroundColor="#1F1E29"
-                HeightRequest="55"
-                CornerRadius="5"
-                HorizontalOptions="FillAndExpand"
-                Padding="0"
-                BorderColor="Transparent"
-                Margin="0">
-                    <HorizontalStackLayout Spacing="10">
+                    BackgroundColor="#1F1E29"
+                    HeightRequest="55"
+                    CornerRadius="12"
+                    HorizontalOptions="FillAndExpand"
+                    Padding="0"
+                    BorderColor="Transparent"
+                    Margin="0">
+                    <Grid ColumnDefinitions="51, *">
                         <Label
-                        FontFamily="FontelloFamily"
-                        Text="&#xE800;"
-                        FontSize="16"
-                        WidthRequest="61"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        TextColor="White"/>
+                            Grid.Column="0"
+                            FontFamily="FontelloFamily"
+                            Text="&#xE800;"
+                            FontSize="16"
+                            WidthRequest="61"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            TextColor="White"/>
 
                         <Entry
-                        x:Name="txtPassword"
-                        PlaceholderColor="#666666"
-                        HeightRequest="55"
-                        HorizontalOptions="Fill"
-                        TextColor="White"
-                        IsPassword="True"
-                        FontSize="12"
-                        Margin="-10, 0, 0, 0"
-                        Placeholder="Password"/>
+                            Grid.Column="1"
+                            x:Name="txtPassword"
+                            PlaceholderColor="#666666"
+                            HeightRequest="55"
+                            HorizontalOptions="Fill"
+                            TextColor="White"
+                            IsPassword="True"
+                            Text="{Binding GetPassword}"
+                            FontSize="12"
+                            Margin="-10, 0, 0, 0"
+                            Placeholder="Password"/>
 
-                    </HorizontalStackLayout>
+                    </Grid>
                 </Frame>
             </VerticalStackLayout>
             <FlexLayout Grid.Row="1" Margin="0" JustifyContent="SpaceBetween">
@@ -103,8 +106,8 @@
                     Text="Login"
                     TextColor="White"
                     BackgroundColor="#ff4654"
-                    CornerRadius="5"
-                    Clicked="Button_Clicked"
+                    CornerRadius="12"
+                    Command="{Binding GetUserDetails}"
                     />
 
             </FlexLayout>
