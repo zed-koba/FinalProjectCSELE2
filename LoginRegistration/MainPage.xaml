@@ -93,16 +93,16 @@
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
-            <FlexLayout Grid.Row="1" Margin="0" JustifyContent="SpaceBetween">
+            <FlexLayout Grid.Row="1" Margin="0" JustifyContent="SpaceBetween" Padding="5,0,0,0">
                 <Label 
                     Text="Forgot Password?" 
-                    FontSize="12"
+                    FontSize="14"
                     VerticalOptions="Center"
                     TextColor="White"
                     />
                 <Button 
                     WidthRequest="130" 
-                    FontSize="12" 
+                    FontSize="14" 
                     Text="Login"
                     TextColor="White"
                     BackgroundColor="#ff4654"
@@ -114,7 +114,7 @@
         </Grid>
         <HorizontalStackLayout Margin="0, 80, 0,0" HorizontalOptions="Center">
             <Label
-                Text="Create an acount"
+                Text="Create an account"
                 TextTransform="Uppercase"
                 TextDecorations="Underline"
                 FontFamily="OpenSansSemibold"
