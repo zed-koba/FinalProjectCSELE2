@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Platform;
+using LoginRegistration.View;
 
 namespace LoginRegistration
 {
@@ -8,7 +9,7 @@ namespace LoginRegistration
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Homepage();
 #if ANDROID
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
             {

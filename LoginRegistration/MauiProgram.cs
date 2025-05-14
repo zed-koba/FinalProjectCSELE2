@@ -16,6 +16,8 @@ namespace LoginRegistration
                     fonts.AddFont("Poppins-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("Poppins-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("fontello.ttf", "FontelloFamily");
+                    fonts.AddFont("fa-regular.ttf", "FAregular");
+                    fonts.AddFont("fa-solid.ttf", "FAsolid");
                 });
 
 #if DEBUG
