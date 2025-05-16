@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LoginRegistration.Model
+﻿namespace LoginRegistration.Model
 {
     public class AuthenticationModel
     {
@@ -14,7 +8,7 @@ namespace LoginRegistration.Model
         public string username { get; set; }
         public string password { get; set; }
         public string emailAddress { get; set; }
-        public int totalPosts { get; set; }    
+        public int totalPosts { get; set; }
         public int totalComments { get; set; }
         public int totalLikes { get; set; }
         public int Id { get; set; }

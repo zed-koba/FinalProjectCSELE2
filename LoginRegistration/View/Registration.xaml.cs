@@ -1,6 +1,5 @@
-using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using LoginRegistration.ViewModel;
 using System.Text.RegularExpressions;
 
