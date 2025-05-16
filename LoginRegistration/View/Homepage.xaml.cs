@@ -1,8 +1,8 @@
 namespace LoginRegistration.View;
 
-public partial class LandingPage : ContentPage
+public partial class Homepage : ContentPage
 {
-    public LandingPage()
+    public Homepage()
     {
         InitializeComponent();
     }

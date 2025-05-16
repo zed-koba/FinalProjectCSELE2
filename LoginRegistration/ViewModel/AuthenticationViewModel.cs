@@ -1,15 +1,7 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using LoginRegistration.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using LoginRegistration.Model;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LoginRegistration.ViewModel
@@ -59,7 +51,7 @@ namespace LoginRegistration.ViewModel
             get => _getFullName;
             set
             {
-                if(_getFullName != value)
+                if (_getFullName != value)
                 {
                     _getFullName = value;
                     OnPropertyChanged(_getFullName);
@@ -71,7 +63,7 @@ namespace LoginRegistration.ViewModel
             get => _getEmailAdd;
             set
             {
-                if(_getEmailAdd != value)
+                if (_getEmailAdd != value)
                 {
                     _getEmailAdd = value;
                     OnPropertyChanged(_getEmailAdd);
@@ -80,12 +72,12 @@ namespace LoginRegistration.ViewModel
         }
         #endregion
         public AuthenticationViewModel()
-        { 
+        {
             _client = new HttpClient();
 
-            GetUserDetails = new Command(async ()=> await GetUserDetailsAsync());
-            AddUser = new Command(async ()=> await AddUserAsync());
-           
+            GetUserDetails = new Command(async () => await GetUserDetailsAsync());
+            AddUser = new Command(async () => await AddUserAsync());
+
         }
         public async Task<bool> CheckUserExistsAsync()
         {
@@ -149,12 +141,13 @@ namespace LoginRegistration.ViewModel
                 };
 
                 var response = await _client.PostAsJsonAsync(apiAddress, newUser);
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     return true;
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
@@ -162,6 +155,9 @@ namespace LoginRegistration.ViewModel
         }
 
         private event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
