@@ -1,131 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LoginRegistration.MainPage"
-             BackgroundColor="#111216">
+<ContentPage
+    x:Class="LoginRegistration.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#111216">
 
     <VerticalStackLayout Padding="25,25,25,25" VerticalOptions="Center">
         <Image
-        Source="logo.png"
-        Aspect="AspectFit"
-        HeightRequest="108"
-        WidthRequest="104"
-        HorizontalOptions="Center"/>
+            Aspect="AspectFit"
+            HeightRequest="108"
+            HorizontalOptions="Center"
+            Source="logo.png"
+            WidthRequest="104" />
         <Label
-        Text="Welcome"
-        FontFamily="OpenSansSemibold"
-        FontSize="36"
-        HorizontalOptions="Center"
-        TextColor="White"
-        />
+            FontFamily="OpenSansSemibold"
+            FontSize="36"
+            HorizontalOptions="Center"
+            Text="Welcome"
+            TextColor="White" />
         <Label
-        Text="Login to your account"
-        FontSize="13"
-        HorizontalOptions="Center"
-        TextColor="White"/>
-        <Grid HeightRequest="193" Margin="0, 40, 0, 0">
+            FontSize="13"
+            HorizontalOptions="Center"
+            Text="Login to your account"
+            TextColor="White" />
+        <Grid Margin="0,40,0,0" HeightRequest="193">
             <Grid.RowDefinitions>
-                <RowDefinition Height="139"/>
-                <RowDefinition/>
+                <RowDefinition Height="139" />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <VerticalStackLayout Spacing="15" >
+            <VerticalStackLayout Spacing="15">
                 <Frame
-                    BackgroundColor="#1F1E29"
-                    HeightRequest="55"
-                    CornerRadius="12"
+                    Margin="0"
                     Padding="0"
+                    BackgroundColor="#1E1E23"
                     BorderColor="Transparent"
-                    Margin="0">
-                    <Grid ColumnDefinitions="51, *" Padding="0">
+                    CornerRadius="12"
+                    HeightRequest="55">
+                    <Grid Padding="0" ColumnDefinitions="51, *">
                         <Label
                             Grid.Column="0"
                             FontFamily="FontelloFamily"
-                            Text="&#xE801;"
                             FontSize="24"
-                            VerticalTextAlignment="Center"
-                            HorizontalTextAlignment="Center"    
-                            TextColor="White"/>
-                        <Entry
-                            Grid.Column="1"
-                            x:Name="txtUsername"
-                            PlaceholderColor="#666666"
-                            HeightRequest="55"
-                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="&#xE801;"
                             TextColor="White"
-                            Text="{Binding GetUsername}"
+                            VerticalTextAlignment="Center" />
+                        <Entry
+                            x:Name="txtUsername"
+                            Grid.Column="1"
                             Margin="-5,0,0,0"
                             FontSize="14"
-                            Placeholder="Username"/>
+                            HeightRequest="55"
+                            HorizontalOptions="Fill"
+                            Placeholder="Username"
+                            PlaceholderColor="#666666"
+                            Text="{Binding GetUsername}"
+                            TextColor="White" />
                     </Grid>
                 </Frame>
                 <Frame
-                    BackgroundColor="#1F1E29"
-                    HeightRequest="55"
-                    CornerRadius="12"
-                    HorizontalOptions="FillAndExpand"
+                    Margin="0"
                     Padding="0"
+                    BackgroundColor="#1E1E23"
                     BorderColor="Transparent"
-                    Margin="0">
+                    CornerRadius="12"
+                    HeightRequest="55"
+                    HorizontalOptions="FillAndExpand">
                     <Grid ColumnDefinitions="51, *">
                         <Label
                             Grid.Column="0"
                             FontFamily="FontelloFamily"
-                            Text="&#xE800;"
                             FontSize="24"
-                            WidthRequest="61"
-                            VerticalTextAlignment="Center"
                             HorizontalTextAlignment="Center"
-                            TextColor="White"/>
+                            Text="&#xE800;"
+                            TextColor="White"
+                            VerticalTextAlignment="Center"
+                            WidthRequest="61" />
 
                         <Entry
-                            Grid.Column="1"
                             x:Name="txtPassword"
-                            PlaceholderColor="#666666"
+                            Grid.Column="1"
+                            Margin="-5,0,0,0"
+                            FontSize="14"
                             HeightRequest="55"
                             HorizontalOptions="Fill"
-                            TextColor="White"
                             IsPassword="True"
+                            Placeholder="Password"
+                            PlaceholderColor="#666666"
                             Text="{Binding GetPassword}"
-                            FontSize="14"
-                            Margin="-5, 0, 0, 0"
-                            Placeholder="Password"/>
-
+                            TextColor="White" />
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
-            <FlexLayout Grid.Row="1" Margin="0" JustifyContent="SpaceBetween" Padding="5,0,0,0">
-                <Label 
-                    Text="Forgot Password?" 
+            <FlexLayout
+                Grid.Row="1"
+                Margin="0"
+                Padding="5,0,0,0"
+                JustifyContent="SpaceBetween">
+                <Label
                     FontSize="14"
-                    VerticalOptions="Center"
+                    Text="Forgot Password?"
                     TextColor="White"
-                    />
-                <Button 
-                    WidthRequest="130" 
-                    FontSize="14" 
+                    VerticalOptions="Center" />
+                <Button
+                    BackgroundColor="#ff4654"
+                    Command="{Binding GetUserDetails}"
+                    CornerRadius="12"
+                    FontSize="14"
                     Text="Login"
                     TextColor="White"
-                    BackgroundColor="#ff4654"
-                    CornerRadius="12"
-                    Command="{Binding GetUserDetails}"
-                    />
-
+                    WidthRequest="130" />
             </FlexLayout>
         </Grid>
-        <HorizontalStackLayout Margin="0, 80, 0,0" HorizontalOptions="Center">
+        <HorizontalStackLayout Margin="0,80,0,0" HorizontalOptions="Center">
             <Label
-                Text="Create an account"
-                TextTransform="Uppercase"
-                TextDecorations="Underline"
                 FontFamily="OpenSansSemibold"
                 FontSize="24"
+                Text="Create an account"
                 TextColor="White"
-                >
+                TextDecorations="Underline"
+                TextTransform="Uppercase">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                 </Label.GestureRecognizers>
             </Label>
         </HorizontalStackLayout>
     </VerticalStackLayout>
-
 </ContentPage>
