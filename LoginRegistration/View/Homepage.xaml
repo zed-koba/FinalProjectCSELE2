@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginRegistration.View.Homepage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Homepage"
+    BackgroundColor="#121312">
+    <Grid
+        Padding="25,25,25,25"
+        RowDefinitions="Auto, *"
+        RowSpacing="20">
+        <!--  Header  -->
+        <FlexLayout AlignItems="Center" JustifyContent="SpaceAround">
+            <Label
+                FlowDirection="LeftToRight"
+                FontAttributes="Bold"
+                FontFamily="OpenSansSemibold"
+                FontSize="24"
+                Text="Rots"
+                TextColor="White" />
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="57"
+                Source="logo.png"
+                WidthRequest="54" />
+            <Label
+                FontAttributes="Bold"
+                FontFamily="OpenSansSemibold"
+                FontSize="24"
+                Text="Profile"
+                TextColor="White" />
+        </FlexLayout>
+
+        <!--  Post Section  -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <Button
+                    Margin="0,0,0,15"
+                    BackgroundColor="#232226"
+                    CornerRadius="12"
+                    FontAttributes="None"
+                    FontSize="14"
+                    Text="Wanna rot?"
+                    TextColor="White" />
+                <!--  Post Card Model  -->
+                <Frame
+                    Margin="0,0,0,10"
+                    Padding="0"
+                    BackgroundColor="#232226"
+                    BorderColor="Transparent"
+                    CornerRadius="12"
+                    HasShadow="False">
+                    <VerticalStackLayout
+                        Padding="10"
+                        HorizontalOptions="Fill"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="24"
+                                    Source="defaultavatar.jpg"
+                                    WidthRequest="24">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12" Rect="0,0,24,24" />
+                                    </Image.Clip>
+                                </Image>
+                                <Label
+                                    FontSize="14"
+                                    Text="Tralelo Tralala"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                Text="&#xF141;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </FlexLayout>
+                        <Frame
+                            Margin="-15,0,-15,0"
+                            Padding="0"
+                            Background="Black"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
+                            HeightRequest="131">
+                            <Image
+                                Aspect="AspectFit"
+                                HorizontalOptions="Center"
+                                Source="post1.jpg"
+                                VerticalOptions="Center" />
+                        </Frame>
+                        <Label
+                            FontSize="12"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="This is a very long label text that should be truncated with ellipsis after three lines. It should not wrap indefinitely and will end with three dots if it's too long to fit within three lines."
+                            TextColor="White"
+                            VerticalOptions="StartAndExpand" />
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF004;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF075;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontSize="14"
+                                Text="10:23PM"
+                                TextColor="#888888" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame
+                    Margin="0,0,0,10"
+                    Padding="0"
+                    BackgroundColor="#232226"
+                    BorderColor="Transparent"
+                    CornerRadius="12"
+                    HasShadow="False">
+                    <VerticalStackLayout
+                        Padding="10"
+                        HorizontalOptions="Fill"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="24"
+                                    Source="defaultavatar.jpg"
+                                    WidthRequest="24">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12" Rect="0,0,24,24" />
+                                    </Image.Clip>
+                                </Image>
+                                <Label
+                                    FontSize="14"
+                                    Text="Brr Brr Patapim"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                Text="&#xF141;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </FlexLayout>
+                        <Frame
+                            Margin="-15,0,-15,0"
+                            Padding="0"
+                            Background="Black"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
+                            HeightRequest="131">
+                            <Image
+                                Aspect="AspectFit"
+                                HorizontalOptions="Center"
+                                Source="post2.jpg"
+                                VerticalOptions="Center" />
+                        </Frame>
+                        <Label
+                            FontSize="12"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="Mount Fuji"
+                            TextColor="White"
+                            VerticalOptions="StartAndExpand" />
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF004;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF075;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontSize="14"
+                                Text="10:23PM"
+                                TextColor="#888888" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame
+                    Margin="0,0,0,10"
+                    Padding="0"
+                    BackgroundColor="#232226"
+                    BorderColor="Transparent"
+                    CornerRadius="12"
+                    HasShadow="False">
+                    <VerticalStackLayout
+                        Padding="10"
+                        HorizontalOptions="Fill"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="24"
+                                    Source="defaultavatar.jpg"
+                                    WidthRequest="24">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12" Rect="0,0,24,24" />
+                                    </Image.Clip>
+                                </Image>
+                                <Label
+                                    FontSize="14"
+                                    Text="Brr Brr Patapim"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                Text="&#xF141;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </FlexLayout>
+                        <Frame
+                            Margin="-15,0,-15,0"
+                            Padding="0"
+                            Background="Black"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
+                            HeightRequest="131">
+                            <Image
+                                Aspect="AspectFit"
+                                HorizontalOptions="Center"
+                                Source="post2.jpg"
+                                VerticalOptions="Center" />
+                        </Frame>
+                        <Label
+                            FontSize="12"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="Mount Fuji"
+                            TextColor="White"
+                            VerticalOptions="StartAndExpand" />
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout Spacing="5">
+                                <Label
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF004;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    FontFamily="FAregular"
+                                    FontSize="24"
+                                    Text="&#xF075;"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="14"
+                                    Text="0"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Label
+                                FontSize="14"
+                                Text="10:23PM"
+                                TextColor="#888888" />
+                        </FlexLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

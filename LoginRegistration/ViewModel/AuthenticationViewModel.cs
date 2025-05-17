@@ -1,13 +1,7 @@
 ﻿using LoginRegistration.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LoginRegistration.ViewModel
@@ -57,7 +51,7 @@ namespace LoginRegistration.ViewModel
             get => _getFullName;
             set
             {
-                if(_getFullName != value)
+                if (_getFullName != value)
                 {
                     _getFullName = value;
                     OnPropertyChanged(_getFullName);
@@ -69,7 +63,7 @@ namespace LoginRegistration.ViewModel
             get => _getEmailAdd;
             set
             {
-                if(_getEmailAdd != value)
+                if (_getEmailAdd != value)
                 {
                     _getEmailAdd = value;
                     OnPropertyChanged(_getEmailAdd);
@@ -78,13 +72,31 @@ namespace LoginRegistration.ViewModel
         }
         #endregion
         public AuthenticationViewModel()
-        { 
+        {
             _client = new HttpClient();
 
-            GetUserDetails = new Command(async ()=> await GetUserDetailsAsync());
-            AddUser = new Command(async ()=> await AddUserAsync());
-        }
+            GetUserDetails = new Command(async () => await GetUserDetailsAsync());
+            AddUser = new Command(async () => await AddUserAsync());
 
+        }
+        public async Task<bool> CheckUserExistsAsync()
+        {
+            try
+            {
+                var getAllDataResponse = await _client.GetFromJsonAsync<List<AuthenticationModel>>(apiAddress);
+                var getUserId = getAllDataResponse?.FirstOrDefault(u => u.username.Equals(GetUsername, StringComparison.Ordinal));
+                if (getUserId != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+            return false;
+        }
         private async Task GetUserDetailsAsync()
         {
             try
@@ -111,17 +123,41 @@ namespace LoginRegistration.ViewModel
             }
         }
 
-        private async Task AddUserAsync()
+        private async Task<bool> AddUserAsync()
         {
-            var newUser = new AuthenticationModel
+            try
             {
-                dateCreated = ((DateTimeOffset)DateTime.Today).ToUnixTimeSeconds(),
-                avatar = "https://static.wikia.nocookie.net/fanon-brainrot/images/a/ac/Tralalero_tralala.jpg",
+                var newUser = new AuthenticationModel
+                {
+                    dateCreated = ((DateTimeOffset)DateTime.Today).ToUnixTimeSeconds(),
+                    avatar = "https://static.wikia.nocookie.net/fanon-brainrot/images/a/ac/Tralalero_tralala.jpg",
+                    fullName = GetFullName,
+                    username = GetUsername,
+                    emailAddress = GetEmailAddress,
+                    password = GetPassword,
+                    totalComments = 0,
+                    totalLikes = 0,
+                    totalPosts = 0
+                };
 
-            };
+                var response = await _client.PostAsJsonAsync(apiAddress, newUser);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+            return false;
         }
 
         private event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
