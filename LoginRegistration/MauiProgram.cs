@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
 
 namespace LoginRegistration
 {
@@ -11,6 +12,7 @@ namespace LoginRegistration
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .ConfigureMopups()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("Poppins-Regular.ttf", "OpenSansRegular");

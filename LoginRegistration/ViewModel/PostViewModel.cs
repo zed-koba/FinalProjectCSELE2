@@ -1,0 +1,183 @@
+﻿using LoginRegistration.Model;
+using LoginRegistration.View;
+using Mopups.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Windows.Input;
+
+namespace LoginRegistration.ViewModel
+{
+    public class PostViewModel : INotifyPropertyChanged
+    {
+        private readonly HttpClient _httpClient;
+        private readonly string apiUrl = "https://6821fa55b342dce8004c96f3.mockapi.io";
+        private readonly string clientID = "30c52e92e523c99";
+
+        #region privateDeclarations
+
+        private string? _getCaptions;
+        private string? _getImageLink;
+        private FileResult? result;
+        private string _getImageName = "File Name";
+
+        #endregion privateDeclarations
+
+        #region publicDeclarations
+
+        public ObservableCollection<UserInteractionModel> allPosts { get; set; } = new();
+
+        public string GetCaption
+        {
+            get => _getCaptions;
+            set
+            {
+                if (_getCaptions != value)
+                {
+                    _getCaptions = value;
+                    OnPropertyChanged(nameof(GetCaption));
+                }
+            }
+        }
+
+        public string GetImageName
+        {
+            get => _getImageName;
+            set
+            {
+                if (_getImageName != value)
+                {
+                    _getImageName = value;
+                    OnPropertyChanged(nameof(GetImageName));
+                }
+            }
+        }
+
+        public ICommand addPost { get; }
+        public ICommand showNewPost { get; }
+        public ICommand closeNewPost { get; }
+        public ICommand uploadAPhoto { get; }
+        public ICommand refreshFeed { get; }
+
+        #endregion publicDeclarations
+
+        public PostViewModel()
+        {
+            _httpClient = new HttpClient();
+
+            addPost = new Command(async () => await AddPost());
+            showNewPost = new Command(async () => await showNewPostAsync());
+            closeNewPost = new Command(async () => await closeNewPostAsync());
+            uploadAPhoto = new Command(async () => await uploadAPhotoAsync());
+            refreshFeed = new Command(async () => await refreshFeedAsync());
+        }
+
+        public async Task refreshFeedAsync()
+        {
+            string getAllPostsUrl = $"{apiUrl}/UserInteractions";
+            var getPosts = await _httpClient.GetFromJsonAsync<List<UserInteractionModel>>(getAllPostsUrl);
+
+            if (getPosts != null)
+            {
+                allPosts.Clear();
+                foreach (UserInteractionModel post in getPosts)
+                {
+                    allPosts.Add(post);
+                }
+            }
+        }
+
+        public async Task uploadAPhotoAsync()
+        {
+            //Pick a file to upload an image
+            try
+            {
+                result = await FilePicker.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Pick an Image",
+                    FileTypes = FilePickerFileType.Images
+                });
+
+                if (result == null)
+                    return;
+
+                if (result != null)
+                    GetImageName = result.FileName;
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        public async Task showNewPostAsync()
+        {
+            await MopupService.Instance.PushAsync(new Post(), true);
+        }
+
+        public async Task closeNewPostAsync()
+        {
+            await MopupService.Instance.PopAsync();
+        }
+
+        public async Task AddPost()
+        {
+            try
+            {
+                //Upload the picked file to Imgur API
+                using var stream = await result!.OpenReadAsync();
+                using var ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+                var imageBytes = ms.ToArray();
+                string base64Image = Convert.ToBase64String(imageBytes);
+
+                using var _uploadClient = new HttpClient();
+                _uploadClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", clientID);
+
+                var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    {"image", base64Image},
+                    {"type", "base64" }
+                });
+
+                var response = await _uploadClient.PostAsync("https://api.imgur.com/3/image", content);
+                response.EnsureSuccessStatusCode();
+
+                //getting the upload Image link
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = JsonDocument.Parse(jsonString);
+                _getImageLink = json.RootElement.GetProperty("data").GetProperty("link").GetString();
+
+                //POST / Add the data to the MockAPI
+                var newPost = new UserInteractionModel()
+                {
+                    Posts = new PostModel()
+                    {
+                        imageSource = _getImageLink!,
+                        caption = GetCaption,
+                        timeStamp = ((DateTimeOffset)DateTime.Today).ToUnixTimeSeconds(),
+                        comments = new ObservableCollection<CommentModel>(),
+                        like = new ObservableCollection<LikeModel>()
+                    },
+                    UserDetailId = "1"
+                };
+                var getUserUrl = $"{apiUrl}/UserInteractions";
+                var addNewPost = await _httpClient.PostAsJsonAsync(getUserUrl, newPost);
+                if (addNewPost.IsSuccessStatusCode)
+                {
+                    await closeNewPostAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}

@@ -1,9 +1,13 @@
+using LoginRegistration.ViewModel;
+using Mopups.Pages;
+
 namespace LoginRegistration.View;
 
-public partial class Post : ContentPage
+public partial class Post : PopupPage
 {
-	public Post()
-	{
-		InitializeComponent();
-	}
+    public Post()
+    {
+        InitializeComponent();
+        BindingContext = new PostViewModel();
+    }
 }

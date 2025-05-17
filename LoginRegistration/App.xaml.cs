@@ -9,7 +9,7 @@ namespace LoginRegistration
         {
             InitializeComponent();
 
-            MainPage = new Post();
+            MainPage = new Homepage();
 #if ANDROID
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
             {

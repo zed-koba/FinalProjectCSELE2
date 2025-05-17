@@ -37,6 +37,7 @@
                 <Button
                     Margin="0,0,0,15"
                     BackgroundColor="#232226"
+                    Command="{Binding showNewPost}"
                     CornerRadius="12"
                     FontAttributes="None"
                     FontSize="14"
