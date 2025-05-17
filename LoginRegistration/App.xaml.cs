@@ -1,5 +1,4 @@
-﻿using LoginRegistration.View;
-using Microsoft.Maui.Platform;
+﻿using Microsoft.Maui.Platform;
 
 namespace LoginRegistration
 {

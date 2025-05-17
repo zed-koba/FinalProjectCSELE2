@@ -1,4 +1,5 @@
 ﻿using LoginRegistration.Model;
+using LoginRegistration.View;
 using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -11,16 +12,21 @@ namespace LoginRegistration.ViewModel
         private readonly string apiAddress = "https://6821fa55b342dce8004c96f3.mockapi.io/UserDetails";
         private readonly HttpClient _client;
         private AuthenticationModel getUser { get; set; } = new();
+
         #region Commands
+
         public ICommand GetUserDetails { get; }
         public ICommand AddUser { get; }
-        #endregion
+
+        #endregion Commands
+
         private string _getUsername;
         private string _getPassword;
         private string _getFullName;
         private string _getEmailAdd;
 
         #region publicAttributes
+
         public string GetUsername
         {
             get => _getUsername;
@@ -33,6 +39,7 @@ namespace LoginRegistration.ViewModel
                 }
             }
         }
+
         public string GetPassword
         {
             get => _getPassword;
@@ -58,6 +65,7 @@ namespace LoginRegistration.ViewModel
                 }
             }
         }
+
         public string GetEmailAddress
         {
             get => _getEmailAdd;
@@ -70,15 +78,17 @@ namespace LoginRegistration.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion publicAttributes
+
         public AuthenticationViewModel()
         {
             _client = new HttpClient();
 
             GetUserDetails = new Command(async () => await GetUserDetailsAsync());
             AddUser = new Command(async () => await AddUserAsync());
-
         }
+
         public async Task<bool> CheckUserExistsAsync()
         {
             try
@@ -97,6 +107,7 @@ namespace LoginRegistration.ViewModel
             }
             return false;
         }
+
         private async Task GetUserDetailsAsync()
         {
             try
@@ -108,13 +119,13 @@ namespace LoginRegistration.ViewModel
                     await App.Current.MainPage.DisplayAlert("Error", "Invalid credentials, retry again", "OK");
                     return;
                 }
-                var userId = $"{apiAddress}/{getUserId.Id}";
+                var userId = $"{apiAddress}/{getUserId.id}";
                 var response = await _client.GetStringAsync(userId);
                 var deserialize = JsonSerializer.Deserialize<AuthenticationModel>(response);
                 if (deserialize != null)
                 {
                     getUser = deserialize;
-                    await App.Current.MainPage.DisplayAlert("Success", $"{getUser.fullName}", "OK");
+                    App.Current.MainPage = new Homepage(getUser);
                 }
             }
             catch (Exception ex)
@@ -145,7 +156,6 @@ namespace LoginRegistration.ViewModel
                 {
                     return true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -155,6 +165,7 @@ namespace LoginRegistration.ViewModel
         }
 
         private event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
