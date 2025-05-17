@@ -2,7 +2,7 @@
 
 namespace LoginRegistration.Model
 {
-    public class UserInteractionModel
+    public class ViewAllPostsModel
     {
         //UserInteraction Model from Resource UserInteraction
         [JsonPropertyName("Posts")]
@@ -12,5 +12,10 @@ namespace LoginRegistration.Model
         public string UserDetailId { get; set; }
 
         public string postId { get; set; }
+
+        //UserDetails From Resource UserDetails
+        public string avatar { get; set; }
+
+        public string fullName { get; set; }
     }
 }

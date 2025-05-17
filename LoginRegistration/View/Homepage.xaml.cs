@@ -1,16 +1,20 @@
+using LoginRegistration.Model;
 using LoginRegistration.ViewModel;
 
 namespace LoginRegistration.View;
 
 public partial class Homepage : ContentPage
 {
-    public Homepage()
+    private bool _isRefreshing = false;
+    public AuthenticationModel getUser;
+
+    public Homepage(AuthenticationModel userGet)
     {
         InitializeComponent();
-        BindingContext = new PostViewModel();
-        if (BindingContext is PostViewModel vm)
-        {
-            vm.refreshFeed.Execute(null);
-        }
+        getUser = userGet;
+        var vm = new PostViewModel();
+        vm.GetCurrentUserID = userGet.id;
+        BindingContext = vm;
+        vm.refreshFeed.Execute(null);
     }
 }

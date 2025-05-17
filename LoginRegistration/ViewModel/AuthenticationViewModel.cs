@@ -1,4 +1,5 @@
 ﻿using LoginRegistration.Model;
+using LoginRegistration.View;
 using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -118,13 +119,13 @@ namespace LoginRegistration.ViewModel
                     await App.Current.MainPage.DisplayAlert("Error", "Invalid credentials, retry again", "OK");
                     return;
                 }
-                var userId = $"{apiAddress}/{getUserId.Id}";
+                var userId = $"{apiAddress}/{getUserId.id}";
                 var response = await _client.GetStringAsync(userId);
                 var deserialize = JsonSerializer.Deserialize<AuthenticationModel>(response);
                 if (deserialize != null)
                 {
                     getUser = deserialize;
-                    await App.Current.MainPage.DisplayAlert("Success", $"{getUser.fullName}", "OK");
+                    App.Current.MainPage = new Homepage(getUser);
                 }
             }
             catch (Exception ex)

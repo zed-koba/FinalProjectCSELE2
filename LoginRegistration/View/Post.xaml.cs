@@ -5,9 +5,12 @@ namespace LoginRegistration.View;
 
 public partial class Post : PopupPage
 {
-    public Post()
+    public Post(string getUserId)
     {
         InitializeComponent();
-        BindingContext = new PostViewModel();
+        var vm = new PostViewModel();
+        vm.GetCurrentUserID = getUserId;
+        BindingContext = vm;
+        vm.refreshFeed.Execute(null);
     }
 }

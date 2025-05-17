@@ -22,12 +22,15 @@ namespace LoginRegistration.ViewModel
         private string? _getImageLink;
         private FileResult? result;
         private string _getImageName = "File Name";
+        private bool isRefreshing;
 
         #endregion privateDeclarations
 
         #region publicDeclarations
 
-        public ObservableCollection<UserInteractionModel> allPosts { get; set; } = new();
+        public ObservableCollection<ViewAllPostsModel> allPosts { get; set; } = new();
+
+        public string GetCurrentUserID { get; set; }
 
         public string GetCaption
         {
@@ -38,6 +41,19 @@ namespace LoginRegistration.ViewModel
                 {
                     _getCaptions = value;
                     OnPropertyChanged(nameof(GetCaption));
+                }
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get => isRefreshing;
+            set
+            {
+                if (isRefreshing != value)
+                {
+                    isRefreshing = value;
+                    OnPropertyChanged(nameof(IsRefreshing));
                 }
             }
         }
@@ -77,16 +93,25 @@ namespace LoginRegistration.ViewModel
         public async Task refreshFeedAsync()
         {
             string getAllPostsUrl = $"{apiUrl}/UserInteractions";
-            var getPosts = await _httpClient.GetFromJsonAsync<List<UserInteractionModel>>(getAllPostsUrl);
+            string getUserInfoUrl = $"{apiUrl}/UserDetails";
+            var getPosts = await _httpClient.GetFromJsonAsync<List<ViewAllPostsModel>>(getAllPostsUrl);
+            var getUserInfo = await _httpClient.GetFromJsonAsync<List<AuthenticationModel>>(getUserInfoUrl);
 
-            if (getPosts != null)
+            if (getPosts != null && getUserInfo != null)
             {
                 allPosts.Clear();
-                foreach (UserInteractionModel post in getPosts)
+                var sortedPosts = getPosts.OrderByDescending(post => post.Posts.timeStamp);
+
+                foreach (ViewAllPostsModel post in sortedPosts)
                 {
+                    var user = getUserInfo.FirstOrDefault(x => x.id == post.UserDetailId);
+                    post.avatar = user?.avatar!;
+                    post.fullName = user?.fullName!;
                     allPosts.Add(post);
                 }
             }
+            await Task.Delay(2000);
+            IsRefreshing = false;
         }
 
         public async Task uploadAPhotoAsync()
@@ -114,7 +139,7 @@ namespace LoginRegistration.ViewModel
 
         public async Task showNewPostAsync()
         {
-            await MopupService.Instance.PushAsync(new Post(), true);
+            await MopupService.Instance.PushAsync(new Post(GetCurrentUserID), true);
         }
 
         public async Task closeNewPostAsync()
@@ -124,6 +149,7 @@ namespace LoginRegistration.ViewModel
 
         public async Task AddPost()
         {
+            await MopupService.Instance.PushAsync(new LoadingScreen());
             try
             {
                 //Upload the picked file to Imgur API
@@ -151,22 +177,24 @@ namespace LoginRegistration.ViewModel
                 _getImageLink = json.RootElement.GetProperty("data").GetProperty("link").GetString();
 
                 //POST / Add the data to the MockAPI
+
                 var newPost = new UserInteractionModel()
                 {
                     Posts = new PostModel()
                     {
                         imageSource = _getImageLink!,
                         caption = GetCaption,
-                        timeStamp = ((DateTimeOffset)DateTime.Today).ToUnixTimeSeconds(),
+                        timeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                         comments = new ObservableCollection<CommentModel>(),
                         like = new ObservableCollection<LikeModel>()
                     },
-                    UserDetailId = "1"
+                    UserDetailId = GetCurrentUserID
                 };
                 var getUserUrl = $"{apiUrl}/UserInteractions";
                 var addNewPost = await _httpClient.PostAsJsonAsync(getUserUrl, newPost);
                 if (addNewPost.IsSuccessStatusCode)
                 {
+                    await closeNewPostAsync();
                     await closeNewPostAsync();
                 }
             }
@@ -176,7 +204,7 @@ namespace LoginRegistration.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
