@@ -63,6 +63,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\AddNewComment.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Homepage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

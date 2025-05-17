@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<mopups:PopupPage
     x:Class="LoginRegistration.View.PostComment"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:local="clr-namespace:LoginRegistration.Features"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     Title="PostComment"
     BackgroundColor="#121312">
+    <ContentPage.Resources>
+        <local:TimeStampConverter x:Key="UnixToTimeConverter" />
+    </ContentPage.Resources>
+    <mopups:PopupPage.Animation>
+        <anim:MoveAnimation
+            DurationIn="600"
+            EasingIn="CubicIn"
+            PositionIn="Bottom"
+            PositionOut="Top" />
+    </mopups:PopupPage.Animation>
     <Grid Padding="25,5,25,5" RowDefinitions="Auto, *, Auto">
+
         <VerticalStackLayout Spacing="10">
             <!--  Back to feed Button  -->
             <Frame
                 Margin="0"
                 Padding="5"
-                BackgroundColor="#232226"
+                BackgroundColor="#FB3137"
                 BorderColor="Transparent"
                 CornerRadius="5"
                 HorizontalOptions="Start"
@@ -43,7 +57,7 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="32"
-                                Source="defaultavatar.jpg"
+                                Source="{Binding PostDetails.avatar}"
                                 WidthRequest="32">
                                 <Image.Clip>
                                     <RoundRectangleGeometry CornerRadius="16" Rect="0,0,32,32" />
@@ -52,7 +66,7 @@
                             <Label
                                 FontAttributes="None"
                                 FontSize="14"
-                                Text="Tralalelo Tralala"
+                                Text="{Binding PostDetails.fullName}"
                                 TextColor="White"
                                 VerticalTextAlignment="Center" />
                         </HorizontalStackLayout>
@@ -72,12 +86,12 @@
                         <Image
                             Aspect="AspectFit"
                             HorizontalOptions="Center"
-                            Source="post1.jpg"
+                            Source="{Binding PostDetails.Posts.imageSource}"
                             VerticalOptions="Center" />
                     </Frame>
                     <Label
                         FontSize="12"
-                        Text="This is a very long label text that should be truncated with ellipsis after three lines. It should not wrap indefinitely and will end with three dots if it's too long to fit within three lines."
+                        Text="{Binding PostDetails.Posts.caption}"
                         TextColor="White"
                         VerticalOptions="StartAndExpand" />
                     <FlexLayout JustifyContent="SpaceBetween">
@@ -108,7 +122,7 @@
                         </HorizontalStackLayout>
                         <Label
                             FontSize="14"
-                            Text="10:23PM"
+                            Text="{Binding PostDetails.Posts.timeStamp, Converter={StaticResource UnixToTimeConverter}}"
                             TextColor="#888888" />
                     </FlexLayout>
                 </VerticalStackLayout>
@@ -128,85 +142,63 @@
         </VerticalStackLayout>
 
         <!--  Comment Section  -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="5">
-                <!--  Comment Card Preview  -->
-                <Frame
-                    Padding="0"
-                    BackgroundColor="#232226"
-                    BorderColor="Transparent"
-                    CornerRadius="8">
-                    <Grid
-                        Padding="10"
-                        ColumnDefinitions="Auto, *"
-                        ColumnSpacing="5">
-                        <Image
-                            Aspect="AspectFill"
-                            HeightRequest="36"
-                            Source="defaultavatar.jpg"
-                            VerticalOptions="Start"
-                            WidthRequest="36">
-                            <Image.Clip>
-                                <RoundRectangleGeometry CornerRadius="18" Rect="0,0,36,36" />
-                            </Image.Clip>
-                        </Image>
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            Margin="5,0,0,0"
-                            Spacing="2">
-                            <Label
-                                FontFamily="OpenSansRegular"
-                                FontSize="14"
-                                Text="Brr Brr Patatim"
-                                TextColor="White" />
-                            <Label
-                                FontFamily="OpenSansSemibold"
-                                FontSize="14"
-                                Text="Definitely love her, she's thick af asdsadasd asasdasdas dasdsadasas  asdasd as dasdas das da asdasda sdasd sadasdasdasdas dasd asdsa dsa dsadsa"
-                                TextColor="White"
-                                VerticalOptions="StartAndExpand" />
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-                <Frame
-                    Padding="0"
-                    BackgroundColor="#232226"
-                    BorderColor="Transparent"
-                    CornerRadius="8">
-                    <Grid
-                        Padding="10"
-                        ColumnDefinitions="Auto, *"
-                        ColumnSpacing="5">
-                        <Image
-                            Aspect="AspectFill"
-                            HeightRequest="36"
-                            Source="defaultavatar.jpg"
-                            VerticalOptions="Start"
-                            WidthRequest="36">
-                            <Image.Clip>
-                                <RoundRectangleGeometry CornerRadius="18" Rect="0,0,36,36" />
-                            </Image.Clip>
-                        </Image>
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            Margin="5,0,0,0"
-                            Spacing="2">
-                            <Label
-                                FontFamily="OpenSansRegular"
-                                FontSize="14"
-                                Text="Brr Brr Patatim"
-                                TextColor="White" />
-                            <Label
-                                FontFamily="OpenSansSemibold"
-                                FontSize="14"
-                                Text="Definitely love her, she's thick af"
-                                TextColor="White"
-                                VerticalOptions="StartAndExpand" />
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-            </VerticalStackLayout>
-        </ScrollView>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding commentDetails}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Spacing="5">
+                        <!--  Comment Card Preview  -->
+                        <Frame
+                            Padding="0"
+                            BackgroundColor="#232226"
+                            BorderColor="Transparent"
+                            CornerRadius="8">
+                            <Grid
+                                Padding="10"
+                                ColumnDefinitions="Auto, *"
+                                ColumnSpacing="5">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="36"
+                                    Source="{Binding avatar}"
+                                    VerticalOptions="Start"
+                                    WidthRequest="36">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="18" Rect="0,0,36,36" />
+                                    </Image.Clip>
+                                </Image>
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Margin="5,0,0,0"
+                                    Spacing="2">
+                                    <FlexLayout JustifyContent="SpaceBetween">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontFamily="PoppinsMedium"
+                                            FontSize="14"
+                                            Text="{Binding fullName}"
+                                            TextColor="White" />
+                                        <Label
+                                            FontFamily="PoppinsMedium"
+                                            FontSize="14"
+                                            Text="{Binding commentTimeStamp, Converter={StaticResource UnixToTimeConverter}}"
+                                            TextColor="#888888" />
+                                    </FlexLayout>
+                                    <Label
+                                        FontFamily="OpenSansSemibold"
+                                        FontSize="14"
+                                        Text="{Binding commentPost}"
+                                        TextColor="White"
+                                        VerticalOptions="StartAndExpand" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Frame
             Grid.Row="2"
             Padding="0"
@@ -222,15 +214,20 @@
                     Text="Write a comment"
                     TextColor="#888888"
                     VerticalTextAlignment="Center" />
-                <Label
+                <Button
                     Grid.Column="1"
                     Margin="0,0,5,0"
-                    FontFamily="FAsolid"
-                    FontSize="24"
-                    Text="&#xF1D8;"
-                    TextColor="#FB3137"
-                    VerticalTextAlignment="Center" />
+                    BackgroundColor="#FB3137"
+                    CornerRadius="12"
+                    FontSize="14"
+                    Text="Rot"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    WidthRequest="69" />
             </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding showWriteComment}" />
+            </Frame.GestureRecognizers>
         </Frame>
     </Grid>
-</ContentPage>
+</mopups:PopupPage>

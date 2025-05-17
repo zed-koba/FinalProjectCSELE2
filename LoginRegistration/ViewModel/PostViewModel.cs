@@ -77,6 +77,8 @@ namespace LoginRegistration.ViewModel
         public ICommand uploadAPhoto { get; }
         public ICommand refreshFeed { get; }
 
+        public ICommand showTappedPost { get; }
+
         #endregion publicDeclarations
 
         public PostViewModel()
@@ -88,6 +90,12 @@ namespace LoginRegistration.ViewModel
             closeNewPost = new Command(async () => await closeNewPostAsync());
             uploadAPhoto = new Command(async () => await uploadAPhotoAsync());
             refreshFeed = new Command(async () => await refreshFeedAsync());
+            showTappedPost = new Command<ViewAllPostsModel>(OnImageTapped);
+        }
+
+        private async void OnImageTapped(ViewAllPostsModel postDetail)
+        {
+            await MopupService.Instance.PushAsync(new PostComment(postDetail, GetCurrentUserID));
         }
 
         public async Task refreshFeedAsync()
@@ -114,7 +122,7 @@ namespace LoginRegistration.ViewModel
             IsRefreshing = false;
         }
 
-        public async Task uploadAPhotoAsync()
+        private async Task uploadAPhotoAsync()
         {
             //Pick a file to upload an image
             try
@@ -137,17 +145,17 @@ namespace LoginRegistration.ViewModel
             }
         }
 
-        public async Task showNewPostAsync()
+        private async Task showNewPostAsync()
         {
             await MopupService.Instance.PushAsync(new Post(GetCurrentUserID), true);
         }
 
-        public async Task closeNewPostAsync()
+        private async Task closeNewPostAsync()
         {
             await MopupService.Instance.PopAsync();
         }
 
-        public async Task AddPost()
+        private async Task AddPost()
         {
             await MopupService.Instance.PushAsync(new LoadingScreen());
             try

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="LoginRegistration.View.AddNewComment"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="AddNewComment"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="True">
+    <mopups:PopupPage.Animation>
+        <anim:MoveAnimation
+            DurationIn="600"
+            EasingIn="CubicIn"
+            PositionIn="Bottom"
+            PositionOut="Top" />
+    </mopups:PopupPage.Animation>
+    <VerticalStackLayout Padding="5,0,5,0" VerticalOptions="End">
+        <Frame
+            Padding="10"
+            BackgroundColor="#111216"
+            BorderColor="#888888"
+            CornerRadius="12"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="StartAndExpand">
+            <Grid
+                Padding="12,8,12,8"
+                ColumnDefinitions="*, Auto"
+                ColumnSpacing="5">
+                <Editor
+                    Margin="0"
+                    AutoSize="TextChanges"
+                    FontSize="14"
+                    Keyboard="Default"
+                    MaxLength="120"
+                    Placeholder="Write a comment"
+                    PlaceholderColor="#888888"
+                    Text="{Binding GetPostComment}"
+                    TextColor="White"
+                    VerticalOptions="StartAndExpand" />
+                <Button
+                    Grid.Column="1"
+                    Margin="0,0,5,0"
+                    BackgroundColor="#FB3137"
+                    Command="{Binding updatePostComments}"
+                    CornerRadius="12"
+                    FontSize="14"
+                    Text="Rot"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    WidthRequest="69" />
+            </Grid>
+        </Frame>
+    </VerticalStackLayout>
+</mopups:PopupPage>

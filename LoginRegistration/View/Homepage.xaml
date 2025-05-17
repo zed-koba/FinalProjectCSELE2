@@ -57,7 +57,7 @@
                         TextColor="White" />
 
                     <!--  Post Card Model  -->
-                    <CollectionView ItemsSource="{Binding allPosts}">
+                    <CollectionView x:Name="collection" ItemsSource="{Binding allPosts}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame
@@ -108,6 +108,9 @@
                                                 HorizontalOptions="Center"
                                                 Source="{Binding Posts.imageSource}"
                                                 VerticalOptions="Center" />
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                            </Frame.GestureRecognizers>
                                         </Frame>
                                         <Label
                                             FontSize="12"
