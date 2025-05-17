@@ -3,98 +3,123 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LoginRegistration.View.ProfilePage"
              Title="ProfilePage">
-    <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="10">
-            <!-- Profile Section -->
-            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *">
-                <!-- Avatar -->
-                <Image Source="avatar.png" 
-                       HeightRequest="60" WidthRequest="60" 
-                       Aspect="AspectFill" 
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center" 
-                       Margin="0,0,10,0" 
-                       Grid.RowSpan="3" />
+    <ScrollView Background="#141414">
+        <VerticalStackLayout Spacing="15" Padding="10" Margin="5,20,5,0">
+            <!-- Header -->
+            <FlexLayout AlignItems="Center" JustifyContent="SpaceAround">
+                <Label
+                     FlowDirection="LeftToRight"
+                     FontAttributes="Bold"
+                     FontFamily="OpenSansSemibold"
+                     FontSize="24"
+                     Text="Rots"
+                     TextColor="White" />
+                <Image
+                     Aspect="AspectFill"
+                     HeightRequest="57"
+                     Source="logo.png"
+                     WidthRequest="54" />
+                <Label
+                     FontAttributes="Bold"
+                     FontFamily="OpenSansSemibold"
+                     FontSize="24"
+                     Text="Profile"
+                     TextColor="White" />   
+            </FlexLayout>
 
-                <!-- Name -->
-                <Label Text="Tralalelo Tralala..." 
-                       FontSize="20" 
-                       TextColor="White" 
-                       Grid.Column="1" 
-                       Grid.Row="0" 
-                       FontAttributes="Bold" />
+            <Frame CornerRadius="25" 
+                   HeightRequest="150"
+                   Margin="0,20,0,0"
+                   BackgroundColor="#232226"
+                   BorderColor="Transparent">
+                <Grid ColumnDefinitions=".3*, .7*">
+                    <!--Profile Picture-->
+                    <Image Source="{Binding nigga}"/>
+                    <HorizontalStackLayout Grid.Column="1"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Spacing="10">
 
-                <!-- Username -->
-                <Label Text="@tralalelotralala" 
-                       FontSize="14" 
-                       TextColor="#808080" 
-                       Grid.Column="1" 
-                       Grid.Row="1" />
 
-                <!-- Stats -->
-                <Grid ColumnDefinitions="*, *, *" 
-                      RowDefinitions="Auto, Auto" 
-                      Grid.Column="1" 
-                      Grid.Row="2">
-                    <Label Text="18,123" 
-                           FontSize="16" 
-                           TextColor="White" 
-                           Grid.Column="0" 
-                           Grid.Row="0" />
-                    <Label Text="Posts" 
-                           FontSize="12" 
-                           TextColor="#808080" 
-                           Grid.Column="0" 
-                           Grid.Row="1" />
+                        <VerticalStackLayout Grid.Column="1"
+                                         HorizontalOptions="Center">
+                            <!--Name username-->
+                            <Label
+                                Grid.Column="1"
+                                Text="Tralalelo Tralala"
+                                FontFamily="OpenSansSemibold"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                FontSize="25"
+                                />
+                            <Label
+                                 Grid.Column="1"
+                                Grid.Row="1"
+                                 Text="@tralalelotralala"
+                                FontFamily="OpenSansSemibold"
+                                TextColor="White"
+                                 FontSize="15"
+                                 />
+                        </VerticalStackLayout>
 
-                    <Label Text="103" 
-                           FontSize="16" 
-                           TextColor="White" 
-                           Grid.Column="1" 
-                           Grid.Row="0" />
-                    <Label Text="ambot" 
-                           FontSize="12" 
-                           TextColor="#808080" 
-                           Grid.Column="1" 
-                           Grid.Row="1" />
-
-                    <Label Text="154,981" 
-                           FontSize="16" 
-                           TextColor="White" 
-                           Grid.Column="2" 
-                           Grid.Row="0" />
-                    <Label Text="likes" 
-                           FontSize="12" 
-                           TextColor="#808080" 
-                           Grid.Column="2" 
-                           Grid.Row="1" />
+                        <!--Edit Profile  ellipsis-->
+                        <Label Text="..."
+                               VerticalOptions="Start"
+                               TextColor="white"
+                               VerticalTextAlignment="Center"
+                               FontSize="25"
+                                Grid.Column="1"/>
+                        
+                        
+                    </HorizontalStackLayout>
                 </Grid>
-            </Grid>
+            </Frame>
+
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Spacing="80">
+                <!--Total Posts Section-->
+                <VerticalStackLayout>
+                    <Label Text="123123"    
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="White"/>
+                    <Label Text="Posts"
+                           TextColor="White"
+                           FontFamily="OpenSansSemibold"
+                           HorizontalOptions="Center"
+                           FontSize="12"/>
+                    
+                </VerticalStackLayout>
+                <!--Total Likes Section-->
+                <VerticalStackLayout>
+                    <Label Text="123123"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="White"/>
+                    <Label Text="Likes"
+                           TextColor="White"
+                           FontFamily="OpenSansSemibold"
+                           HorizontalOptions="Center"
+                           FontSize="12"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <!--single Line-->
+            <BoxView Color="White" HeightRequest="1" />
 
             <!-- New Post Button -->
             <Button Text="new post +" 
                     BackgroundColor="Red" 
                     TextColor="White" 
-                    CornerRadius="5" 
-                    HorizontalOptions="FillAndExpand" 
+                    CornerRadius="10" 
+                    WidthRequest="150"
+                    HorizontalOptions="Center"
                     Margin="0,10,0,0" />
 
             <!-- Posts Grid -->
-            <CollectionView ItemsSource="{Binding Posts}" 
-                            ItemSizingStrategy="MeasureAllItems">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="0" 
-                               HasShadow="False" 
-                               BackgroundColor="Transparent">
-                            <Image Source="{Binding ImageUrl}" 
-                                   Aspect="AspectFill" 
-                                   HeightRequest="100" 
-                                   WidthRequest="100" />
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <FlexLayout BindableLayout.ItemsSource="{Binding Posts}">
+                
+            </FlexLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
