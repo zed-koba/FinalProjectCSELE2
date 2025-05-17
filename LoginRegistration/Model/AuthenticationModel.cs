@@ -11,6 +11,6 @@
         public int totalPosts { get; set; }
         public int totalComments { get; set; }
         public int totalLikes { get; set; }
-        public int Id { get; set; }
+        public string id { get; set; }
     }
 }
