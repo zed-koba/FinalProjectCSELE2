@@ -14,6 +14,9 @@ namespace LoginRegistration.Model
 
         public string postId { get; set; }
 
+        //Post Options Visiblity
+        public bool isVisible { get; set; }
+
         //UserDetails From Resource UserDetails
         public string avatar { get; set; }
 

@@ -20,10 +20,13 @@ namespace LoginRegistration.ViewModel
         private ObservableCollection<CommentModel> comments { get; set; } = new();
         private AuthenticationModel userDetail = new();
         private string _getPostComment;
+        private string _getPostCaption;
 
         #endregion privateAttributes
 
         #region publicAttributes
+
+        public TaskCompletionSource<bool> _tcs;
 
         public string GetPostComment
         {
@@ -34,6 +37,19 @@ namespace LoginRegistration.ViewModel
                 {
                     _getPostComment = value;
                     OnPropertyChanged(nameof(GetPostComment));
+                }
+            }
+        }
+
+        public string GetPostCaptions
+        {
+            get => _getPostCaption;
+            set
+            {
+                if (_getPostCaption != value)
+                {
+                    _getPostCaption = value;
+                    OnPropertyChanged(nameof(GetPostCaptions));
                 }
             }
         }
@@ -53,6 +69,10 @@ namespace LoginRegistration.ViewModel
         public ICommand updatePostComments { get; }
         public ICommand closeCommentPost { get; }
         public ICommand likeAPost { get; }
+        public ICommand showOptions { get; }
+        public ICommand deletePost { get; }
+        public ICommand showEditPosts { get; }
+        public ICommand editPost { get; }
 
         #endregion publicAttributes
 
@@ -62,12 +82,72 @@ namespace LoginRegistration.ViewModel
 
             postDetails = getPostDetails;
             userDetail = GetUserDetails;
+            GetPostCaptions = getPostDetails.Posts.caption;
 
             GetPostData = new Command(async () => await GetPostDataAsync());
             showWriteComment = new Command(async () => await showWriteCommentAsync());
             updatePostComments = new Command(async () => await updatePostCommentsAsync());
-            closeCommentPost = new Command(async () => await MopupService.Instance.PopAsync());
+            closeCommentPost = new Command(async () => await closeCommentPostAsync());
             likeAPost = new Command(OnLikeIconTapped);
+            showOptions = new Command(async () => await MopupService.Instance.PushAsync(new OptionsPopup(this)));
+            showEditPosts = new Command(async () => await MopupService.Instance.PushAsync(new EditPost(this)));
+            deletePost = new Command(async () => await deletePostAsync());
+            editPost = new Command(async () => await editPostAsync());
+        }
+
+        private async Task closeCommentPostAsync()
+        {
+            _tcs.TrySetResult(true);
+            await MopupService.Instance.PopAsync();
+        }
+
+        private async Task editPostAsync()
+        {
+            try
+            {
+                var getPostUrl = $"{apiUrl}/UserDetails/{userDetail.id}/UserInteractions/{PostDetails.postId}";
+                var newData = new UserInteractionModel()
+                {
+                    Posts = postDetails.Posts,
+                    UserDetailId = postDetails.UserDetailId,
+                    postId = postDetails.postId
+                };
+
+                newData.Posts.caption = GetPostCaptions;
+                postDetails.Posts.caption = GetPostCaptions;
+                GetPostCaptions = postDetails.Posts.caption;
+                var updatePost = await _httpClient.PutAsJsonAsync(getPostUrl, newData);
+                if (updatePost.IsSuccessStatusCode)
+                {
+                    await MopupService.Instance.PopAsync();
+                    await MopupService.Instance.PopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async Task deletePostAsync()
+        {
+            await MopupService.Instance.PushAsync(new LoginViewLoading());
+            try
+            {
+                var getPostUrl = $"{apiUrl}/UserDetails/{userDetail.id}/UserInteractions/{PostDetails.postId}";
+                var deletePostOn = await _httpClient.DeleteAsync(getPostUrl);
+                if (deletePostOn.IsSuccessStatusCode)
+                {
+                    await MopupService.Instance.PopAsync();
+                    await MopupService.Instance.PopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Eeror", ex.Message, "OK");
+            }
+            _tcs.TrySetResult(true);
+            await MopupService.Instance.PopAsync();
         }
 
         private async void OnLikeIconTapped()

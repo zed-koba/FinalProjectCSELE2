@@ -170,20 +170,23 @@
                         TextColor="White" />
                 </Grid>
             </Frame>
-            <HorizontalStackLayout Spacing="-5">
+            <Grid ColumnDefinitions="Auto, *">
                 <CheckBox
                     x:Name="AgreeCheckBox"
                     IsChecked="False"
                     VerticalOptions="Center"
                     Color="#ff4654" />
                 <Label
+                    Grid.Column="1"
                     FontAttributes="None"
                     FontSize="16"
+                    HorizontalOptions="StartAndExpand"
+                    LineBreakMode="WordWrap"
                     Text="I agree to terms and condition"
                     TextColor="White"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+            </Grid>
             <Button
                 x:Name="createAccount"
                 BackgroundColor="#FB3137"
@@ -192,23 +195,29 @@
                 FontAttributes="Bold"
                 FontFamily="PoppinsMedium"
                 FontSize="18"
-                Text="Create Account" />
-        </VerticalStackLayout>
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-            <Label
-                FontSize="16"
-                Text="Already have an account?"
+                Text="Create Account"
                 TextColor="White" />
+        </VerticalStackLayout>
+        <StackLayout HorizontalOptions="Center" Spacing="10">
             <Label
-                FontAttributes="Bold"
                 FontSize="16"
-                Text="Sign in"
-                TextColor="#FB3137"
-                TextDecorations="Underline">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                </Label.GestureRecognizers>
+                Text="Already have an account? Sign in"
+                TextColor="White">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Already have an account? " />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="Sign in"
+                            TextColor="#FB3137"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
             </Label>
-        </HorizontalStackLayout>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

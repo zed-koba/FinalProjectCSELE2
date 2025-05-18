@@ -32,6 +32,7 @@ namespace LoginRegistration.ViewModel
 
         public string GetCurrentUserID { get; set; }
         public AuthenticationModel CurrentUserDetail { get; set; }
+        public ViewAllPostsModel selectedPosts { get; set; } = new();
 
         public string GetCaption
         {
@@ -98,7 +99,18 @@ namespace LoginRegistration.ViewModel
 
         private async void OnImageTapped(ViewAllPostsModel postDetail)
         {
-            await MopupService.Instance.PushAsync(new PostComment(postDetail, CurrentUserDetail));
+            var tcs = new TaskCompletionSource<bool>();
+            var postCommentPopup = new PostComment(postDetail, CurrentUserDetail, tcs);
+            await MopupService.Instance.PushAsync(postCommentPopup);
+            var result = await tcs.Task;
+            if (result)
+            {
+                await refreshFeedAsync();
+            }
+            else
+            {
+                await refreshFeedAsync();
+            }
         }
 
         private async void OnLikeIconTapped(ViewAllPostsModel postDetail)
@@ -167,11 +179,12 @@ namespace LoginRegistration.ViewModel
                     var user = getUserInfo.FirstOrDefault(x => x.id == post.UserDetailId);
                     post.avatar = user?.avatar!;
                     post.fullName = user?.fullName!;
+                    bool checkIfSameId = post.UserDetailId == CurrentUserDetail.id ? true : false;
                     bool isLiked = post.Posts.like.Any(like => like != null &&
                         like.Contains(GetCurrentUserID));
-
                     post.likeColor = isLiked ? "#FB3137" : "White";
                     post.iconFont = isLiked ? "FAsolid" : "FAregular";
+                    post.isVisible = checkIfSameId;
                     allPosts.Add(post);
                 }
             }
@@ -204,7 +217,7 @@ namespace LoginRegistration.ViewModel
 
         private async Task showNewPostAsync()
         {
-            await MopupService.Instance.PushAsync(new Post(GetCurrentUserID), true);
+            await MopupService.Instance.PushAsync(new Post(this));
         }
 
         private async Task closeNewPostAsync()

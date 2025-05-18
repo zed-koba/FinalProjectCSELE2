@@ -95,13 +95,6 @@
                                                     TextColor="White"
                                                     VerticalTextAlignment="Center" />
                                             </HorizontalStackLayout>
-                                            <Label
-                                                FontFamily="FAsolid"
-                                                FontSize="24"
-                                                IsVisible="False"
-                                                Text="&#xF141;"
-                                                TextColor="White"
-                                                VerticalTextAlignment="Center" />
                                         </FlexLayout>
                                         <Frame
                                             Margin="-15,0,-15,0"

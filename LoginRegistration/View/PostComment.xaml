@@ -28,8 +28,7 @@
                 BackgroundColor="#FB3137"
                 BorderColor="Transparent"
                 CornerRadius="5"
-                HorizontalOptions="Start"
-                WidthRequest="105">
+                HorizontalOptions="Start">
                 <HorizontalStackLayout Spacing="5">
                     <Label
                         FontFamily="FAsolid"
@@ -39,7 +38,7 @@
                         VerticalTextAlignment="Center" />
                     <Label
                         FontSize="12"
-                        Text="Back to feed"
+                        Text="Back to rot"
                         TextColor="White"
                         VerticalTextAlignment="Center" />
                 </HorizontalStackLayout>
@@ -78,7 +77,11 @@
                             FontSize="24"
                             Text="&#xF141;"
                             TextColor="White"
-                            VerticalTextAlignment="Center" />
+                            VerticalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding showOptions}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </FlexLayout>
                     <Frame
                         Padding="0"
@@ -94,7 +97,7 @@
                     </Frame>
                     <Label
                         FontSize="12"
-                        Text="{Binding PostDetails.Posts.caption}"
+                        Text="{Binding GetPostCaptions}"
                         TextColor="White"
                         VerticalOptions="StartAndExpand" />
                     <FlexLayout JustifyContent="SpaceBetween">

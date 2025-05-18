@@ -3,13 +3,11 @@ using Mopups.Pages;
 
 namespace LoginRegistration.View;
 
-public partial class Post : PopupPage
+public partial class EditPost : PopupPage
 {
-    public Post(PostViewModel viewModel)
+    public EditPost(PostCommentViewModel vm)
     {
         InitializeComponent();
-        var vm = viewModel;
         BindingContext = vm;
-        vm.refreshFeed.Execute(null);
     }
 }

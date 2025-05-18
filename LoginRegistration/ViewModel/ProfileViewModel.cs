@@ -142,7 +142,14 @@ namespace LoginRegistration.ViewModel
                 likeColor = likeColor,
                 iconFont = iconFont
             };
-            await MopupService.Instance.PushAsync(new PostComment(setViewAllPostModel, UserDetails));
+            var tcs = new TaskCompletionSource<bool>();
+            var popup = new PostComment(setViewAllPostModel, UserDetails, tcs);
+            await MopupService.Instance.PushAsync(popup);
+            var result = await tcs.Task;
+            if (result)
+            {
+                await refreshProfileAsync();
+            }
         }
 
         private async Task refreshProfileAsync()
@@ -171,7 +178,6 @@ namespace LoginRegistration.ViewModel
             }
             catch (Exception ex)
             {
-
             }
         }
 
