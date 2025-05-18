@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="LoginRegistration.View.EditAvatar"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="EditAvatar"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="True">
+    <Grid
+        HorizontalOptions="Center"
+        RowDefinitions="Auto, *"
+        VerticalOptions="Center">
+        <Border
+            Margin="0,0,0,-70"
+            HeightRequest="140"
+            HorizontalOptions="Center"
+            Stroke="White"
+            StrokeShape="{RoundRectangle CornerRadius=70}"
+            StrokeThickness="3"
+            VerticalOptions="Center"
+            WidthRequest="140"
+            ZIndex="99">
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="140"
+                Source="defaultAvatar.jpg"
+                WidthRequest="140">
+                <Image.Clip>
+                    <RoundRectangleGeometry CornerRadius="70" Rect="0,0,140,140" />
+                </Image.Clip>
+            </Image>
+        </Border>
+        <Frame
+            Grid.Row="1"
+            Margin="0"
+            Padding="0"
+            BackgroundColor="#232226"
+            BorderColor="Transparent"
+            CornerRadius="10"
+            HeightRequest="567"
+            WidthRequest="327"
+            ZIndex="1">
+            <Grid>
+                <Image Aspect="AspectFill" Source="bg2.jpg" />
+                <VerticalStackLayout Padding="20,0,20,0" Spacing="10">
+                    <Label
+                        Margin="0,80,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsMedium"
+                        FontSize="24"
+                        HorizontalTextAlignment="Center"
+                        Text="Change Avatar"
+                        TextColor="White" />
+                    <FlexLayout Direction="Row" Wrap="Wrap">
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#FB3137"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+                        <Border
+                            Margin="0,3,3,0"
+                            HeightRequest="88"
+                            HorizontalOptions="Center"
+                            Stroke="#888"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="88">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="88"
+                                Source="defaultAvatar.jpg"
+                                WidthRequest="88" />
+                        </Border>
+
+                    </FlexLayout>
+                    <Button
+                        Margin="0,20,0,0"
+                        BackgroundColor="#FB3137"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsMedium"
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        Text="Save"
+                        WidthRequest="98" />
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Cancel"
+                        TextColor="White"
+                        TextDecorations="Underline" />
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+    </Grid>
+</mopups:PopupPage>

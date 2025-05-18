@@ -14,7 +14,13 @@ public partial class Homepage : ContentPage
         getUser = userGet;
         var vm = new PostViewModel();
         vm.GetCurrentUserID = userGet.id;
+        vm.CurrentUserDetail = userGet;
         BindingContext = vm;
         vm.refreshFeed.Execute(null);
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        App.Current.MainPage = new ProfilePage(getUser);
     }
 }

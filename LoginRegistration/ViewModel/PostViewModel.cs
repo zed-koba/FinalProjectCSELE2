@@ -31,6 +31,7 @@ namespace LoginRegistration.ViewModel
         public ObservableCollection<ViewAllPostsModel> allPosts { get; set; } = new();
 
         public string GetCurrentUserID { get; set; }
+        public AuthenticationModel CurrentUserDetail { get; set; }
 
         public string GetCaption
         {
@@ -105,6 +106,7 @@ namespace LoginRegistration.ViewModel
             try
             {
                 var GetPostDetailsUrl = $"{apiUrl}/UserDetails/{postDetail.UserDetailId}/UserInteractions/{postDetail.postId}";
+                var GetUserDetails = $"{apiUrl}/UserDetails/{GetCurrentUserID}";
                 var newData = new UserInteractionModel()
                 {
                     Posts = postDetail.Posts,
@@ -116,14 +118,18 @@ namespace LoginRegistration.ViewModel
                 if (checkIfLiked == -1)
                 {
                     newData.Posts.like.Add($"{GetCurrentUserID}");
+                    CurrentUserDetail.totalLikes = CurrentUserDetail.totalLikes + 1;
                     ifLiked = false;
                 }
                 else
                 {
                     newData.Posts.like.RemoveAt(checkIfLiked);
+                    CurrentUserDetail.totalLikes = CurrentUserDetail.totalLikes - 1;
                     ifLiked = true;
                 }
+
                 var updatePostLike = await _httpClient.PutAsJsonAsync(GetPostDetailsUrl, newData);
+                var updateTotalLikes = await _httpClient.PutAsJsonAsync(GetUserDetails, CurrentUserDetail);
                 var targetPost = allPosts.FirstOrDefault(u => u.postId == postDetail.postId);
                 if (targetPost != null)
                 {

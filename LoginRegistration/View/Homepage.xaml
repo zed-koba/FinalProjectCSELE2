@@ -36,7 +36,11 @@
                 FontFamily="OpenSansSemibold"
                 FontSize="24"
                 Text="Profile"
-                TextColor="White" />
+                TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
         </FlexLayout>
 
         <!--  Post Section  -->

@@ -51,7 +51,7 @@
                         FontSize="14"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
-                        Placeholder="Name"
+                        Placeholder="Username"
                         PlaceholderColor="#666666"
                         Text="{Binding GetFullName}"
                         TextColor="White" />
