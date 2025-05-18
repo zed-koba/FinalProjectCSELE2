@@ -57,7 +57,7 @@
                         TextColor="White" />
 
                     <!--  Post Card Model  -->
-                    <CollectionView ItemsSource="{Binding allPosts}">
+                    <CollectionView x:Name="collection" ItemsSource="{Binding allPosts}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame
@@ -108,6 +108,9 @@
                                                 HorizontalOptions="Center"
                                                 Source="{Binding Posts.imageSource}"
                                                 VerticalOptions="Center" />
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                            </Frame.GestureRecognizers>
                                         </Frame>
                                         <Label
                                             FontSize="12"
@@ -119,14 +122,18 @@
                                         <FlexLayout JustifyContent="SpaceBetween">
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label
-                                                    FontFamily="FAregular"
+                                                    FontFamily="{Binding iconFont}"
                                                     FontSize="24"
                                                     Text="&#xF004;"
-                                                    TextColor="White"
-                                                    VerticalTextAlignment="Center" />
+                                                    TextColor="{Binding likeColor}"
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.likeAPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Label
                                                     FontSize="14"
-                                                    Text="0"
+                                                    Text="{Binding Posts.like.Count}"
                                                     TextColor="White"
                                                     VerticalTextAlignment="Center" />
                                                 <Label
@@ -135,10 +142,14 @@
                                                     FontSize="24"
                                                     Text="&#xF075;"
                                                     TextColor="White"
-                                                    VerticalTextAlignment="Center" />
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Label
                                                     FontSize="14"
-                                                    Text="0"
+                                                    Text="{Binding Posts.comments.Count}"
                                                     TextColor="White"
                                                     VerticalTextAlignment="Center" />
                                             </HorizontalStackLayout>

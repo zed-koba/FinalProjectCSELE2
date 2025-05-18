@@ -8,6 +8,6 @@ namespace LoginRegistration.Model
         public string caption { get; set; }
         public long timeStamp { get; set; }
         public ObservableCollection<CommentModel> comments { get; set; }
-        public ObservableCollection<LikeModel> like { get; set; }
+        public ObservableCollection<string> like { get; set; }
     }
 }

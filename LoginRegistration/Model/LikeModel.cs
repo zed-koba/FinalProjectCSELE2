@@ -2,6 +2,6 @@
 {
     public class LikeModel
     {
-        public List<string> userIdLikes;
+        public List<string> userIdLikes { get; set; }
     }
 }
