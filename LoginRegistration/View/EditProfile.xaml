@@ -26,7 +26,7 @@
                 <Image
                     Aspect="AspectFill"
                     HeightRequest="140"
-                    Source="{Binding UserDetails.avatar}"
+                    Source="{Binding NewAvatar}"
                     WidthRequest="140">
                     <Image.Clip>
                         <RoundRectangleGeometry CornerRadius="70" Rect="0,0,140,140" />
@@ -35,7 +35,12 @@
                 <Frame
                     Padding="0"
                     BackgroundColor="#73FFFFFF"
-                    BorderColor="Transparent" />
+                    BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding showChangeAvatar}" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
                 <Label
                     FontFamily="FAsolid"
                     FontSize="24"
@@ -44,6 +49,9 @@
                     TextColor="White"
                     VerticalTextAlignment="Center" />
             </Grid>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding showChangeAvatar}" />
+            </Border.GestureRecognizers>
         </Border>
         <Frame
             Grid.Row="1"
@@ -168,6 +176,7 @@
                     <Button
                         Margin="0,20,0,0"
                         BackgroundColor="#FB3137"
+                        Command="{Binding updateProfile}"
                         FontAttributes="Bold"
                         FontFamily="PoppinsMedium"
                         FontSize="16"
@@ -179,7 +188,11 @@
                         HorizontalTextAlignment="Center"
                         Text="Cancel"
                         TextColor="White"
-                        TextDecorations="Underline" />
+                        TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding cancelEditProfile}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </VerticalStackLayout>
             </Grid>
         </Frame>

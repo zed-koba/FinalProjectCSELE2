@@ -10,7 +10,8 @@
         <local:TimeStampConverter x:Key="UnixToTimeConverter" />
     </ContentPage.Resources>
     <Grid
-        Padding="25,25,25,25"
+        Margin="0,10,0,0"
+        Padding="15"
         RowDefinitions="Auto, *"
         RowSpacing="20">
         <!--  Header  -->
@@ -21,7 +22,8 @@
                 FontFamily="OpenSansSemibold"
                 FontSize="24"
                 Text="Rots"
-                TextColor="White">
+                TextColor="White"
+                TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding refreshFeed}" />
                 </Label.GestureRecognizers>
@@ -96,6 +98,7 @@
                                             <Label
                                                 FontFamily="FAsolid"
                                                 FontSize="24"
+                                                IsVisible="False"
                                                 Text="&#xF141;"
                                                 TextColor="White"
                                                 VerticalTextAlignment="Center" />

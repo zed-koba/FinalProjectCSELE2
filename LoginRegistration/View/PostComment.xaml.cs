@@ -6,13 +6,12 @@ namespace LoginRegistration.View;
 
 public partial class PostComment : PopupPage
 {
-    public PostComment(ViewAllPostsModel getPostDetails, string userId)
+    public PostComment(ViewAllPostsModel getPostDetails, AuthenticationModel GetUserDetails)
     {
         InitializeComponent();
-        var viewModel = new PostCommentViewModel(getPostDetails, userId);
+        var viewModel = new PostCommentViewModel(getPostDetails, GetUserDetails);
         BindingContext = viewModel;
 
         _ = viewModel.GetCommentUserDetails();
-        _ = viewModel.GetUserDetails();
     }
 }

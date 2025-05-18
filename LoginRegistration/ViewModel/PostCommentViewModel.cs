@@ -15,7 +15,6 @@ namespace LoginRegistration.ViewModel
 
         #region privateAttributes
 
-        private string currentUserId { get; set; } = string.Empty;
         private ViewAllPostsModel postDetails = new();
         public ObservableCollection<ViewAllCommentsModel> commentDetails { get; set; } = new();
         private ObservableCollection<CommentModel> comments { get; set; } = new();
@@ -57,12 +56,12 @@ namespace LoginRegistration.ViewModel
 
         #endregion publicAttributes
 
-        public PostCommentViewModel(ViewAllPostsModel getPostDetails, string userId)
+        public PostCommentViewModel(ViewAllPostsModel getPostDetails, AuthenticationModel GetUserDetails)
         {
             _httpClient = new HttpClient();
 
             postDetails = getPostDetails;
-            currentUserId = userId;
+            userDetail = GetUserDetails;
 
             GetPostData = new Command(async () => await GetPostDataAsync());
             showWriteComment = new Command(async () => await showWriteCommentAsync());
@@ -82,10 +81,10 @@ namespace LoginRegistration.ViewModel
                     UserDetailId = PostDetails.UserDetailId,
                     postId = PostDetails.postId,
                 };
-                var checkIfLiked = PostDetails.Posts.like.IndexOf(currentUserId);
+                var checkIfLiked = PostDetails.Posts.like.IndexOf(userDetail.id);
                 if (checkIfLiked == -1)
                 {
-                    newData.Posts.like.Add($"{currentUserId}");
+                    newData.Posts.like.Add($"{userDetail.id}");
                     PostDetails.likeColor = "#FB3137";
                     PostDetails.iconFont = "FAsolid";
                     PostDetails.Posts.like = newData.Posts.like;
@@ -130,16 +129,6 @@ namespace LoginRegistration.ViewModel
             }
         }
 
-        public async Task GetUserDetails()
-        {
-            var userUrl = $"{apiUrl}/UserDetails/{currentUserId}";
-            var getUserDetail = await _httpClient.GetFromJsonAsync<AuthenticationModel>(userUrl);
-            if (getUserDetail != null)
-            {
-                userDetail = getUserDetail;
-            }
-        }
-
         private async Task updatePostCommentsAsync()
         {
             try
@@ -147,7 +136,7 @@ namespace LoginRegistration.ViewModel
                 string uniqueCommentId = $"comms_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}_{Random.Shared.Next(1000, 9999)}";
                 var newComment = new CommentModel
                 {
-                    userId = currentUserId,
+                    userId = userDetail.id,
                     commentId = uniqueCommentId,
                     commentPost = GetPostComment,
                     commentTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
@@ -155,9 +144,15 @@ namespace LoginRegistration.ViewModel
                 comments.Add(newComment);
                 postDetails.Posts.comments = comments;
                 userDetail.totalComments = userDetail.totalComments + 1;
+                var newUpdatePosts = new UserInteractionModel
+                {
+                    Posts = postDetails.Posts,
+                    UserDetailId = postDetails.UserDetailId,
+                    postId = postDetails.postId
+                };
                 var getPostUrl = $"{apiUrl}/UserDetails/{postDetails.UserDetailId}/UserInteractions/{postDetails.postId}";
-                var userUrl = $"{apiUrl}/UserDetails/{currentUserId}";
-                var updatePostData = await _httpClient.PutAsJsonAsync(getPostUrl, postDetails);
+                var userUrl = $"{apiUrl}/UserDetails/{userDetail.id}";
+                var updatePostData = await _httpClient.PutAsJsonAsync(getPostUrl, newUpdatePosts);
                 var updateTotalComment = await _httpClient.PutAsJsonAsync(userUrl, userDetail);
                 if (updatePostData.IsSuccessStatusCode)
                 {
@@ -167,8 +162,8 @@ namespace LoginRegistration.ViewModel
                         commentId = newComment.commentId,
                         commentPost = newComment.commentPost,
                         commentTimeStamp = newComment.commentTimeStamp,
-                        avatar = postDetails.avatar,
-                        fullName = postDetails.fullName
+                        avatar = userDetail.avatar,
+                        fullName = userDetail.fullName
                     });
                     await MopupService.Instance.PopAsync();
                 }

@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using LoginRegistration.ViewModel;
+using Mopups.Services;
 using System.Text.RegularExpressions;
 
 namespace LoginRegistration.View;
@@ -15,7 +16,6 @@ public partial class Registration : ContentPage
 
     private async void createAccount_Clicked(object sender, EventArgs e)
     {
-
         if (emptyErrorHandling(txtName) || emptyErrorHandling(txtUsername) ||
             emptyErrorHandling(txtPassword) || emptyErrorHandling(txtconfirmPass))
         {
@@ -46,15 +46,16 @@ public partial class Registration : ContentPage
             await Toast.Make("Please enter a valid email address.", ToastDuration.Short, 12).Show();
             return;
         }
+        await MopupService.Instance.PushAsync(new LoginViewLoading());
 
         if (BindingContext is AuthenticationViewModel vm)
         {
             if (await vm.CheckUserExistsAsync())
             {
                 await Toast.Make("Username already exists", ToastDuration.Short, 12).Show();
+                await MopupService.Instance.PopAsync();
                 return;
             }
-
             vm.AddUser.Execute(null);
             await Toast.Make("Successfully Registered", ToastDuration.Short, 12).Show();
         }
@@ -66,7 +67,6 @@ public partial class Registration : ContentPage
         txtPassword.Text = "";
         txtconfirmPass.Text = "";
         AgreeCheckBox.IsChecked = false;
-
     }
 
     private bool emptyErrorHandling(Entry entry)
@@ -77,6 +77,7 @@ public partial class Registration : ContentPage
         }
         return false;
     }
+
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         App.Current.MainPage = new MainPage();

@@ -39,17 +39,17 @@
                     <Grid Padding="0" ColumnDefinitions="51, *">
                         <Label
                             Grid.Column="0"
-                            FontFamily="FontelloFamily"
+                            FontFamily="FAsolid"
                             FontSize="24"
                             HorizontalTextAlignment="Center"
-                            Text="&#xE801;"
+                            Text="&#xF007;"
                             TextColor="White"
                             VerticalTextAlignment="Center" />
                         <Entry
                             x:Name="txtUsername"
                             Grid.Column="1"
                             Margin="-5,0,0,0"
-                            FontSize="14"
+                            FontSize="16"
                             HeightRequest="55"
                             HorizontalOptions="Fill"
                             Placeholder="Username"
@@ -69,10 +69,10 @@
                     <Grid ColumnDefinitions="51, *">
                         <Label
                             Grid.Column="0"
-                            FontFamily="FontelloFamily"
+                            FontFamily="FAsolid"
                             FontSize="24"
                             HorizontalTextAlignment="Center"
-                            Text="&#xE800;"
+                            Text="&#xF084;"
                             TextColor="White"
                             VerticalTextAlignment="Center"
                             WidthRequest="61" />
@@ -81,7 +81,7 @@
                             x:Name="txtPassword"
                             Grid.Column="1"
                             Margin="-5,0,0,0"
-                            FontSize="14"
+                            FontSize="16"
                             HeightRequest="55"
                             HorizontalOptions="Fill"
                             IsPassword="True"

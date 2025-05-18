@@ -22,6 +22,8 @@ namespace LoginRegistration.Model
         //Like Color Properties
         private string _likeColor;
 
+        private string _iconFont;
+
         public string likeColor
         {
             get => _likeColor;
@@ -34,8 +36,6 @@ namespace LoginRegistration.Model
                 }
             }
         }
-
-        private string _iconFont;
 
         public string iconFont
         {

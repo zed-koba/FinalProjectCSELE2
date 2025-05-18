@@ -98,7 +98,7 @@ namespace LoginRegistration.ViewModel
 
         private async void OnImageTapped(ViewAllPostsModel postDetail)
         {
-            await MopupService.Instance.PushAsync(new PostComment(postDetail, GetCurrentUserID));
+            await MopupService.Instance.PushAsync(new PostComment(postDetail, CurrentUserDetail));
         }
 
         private async void OnLikeIconTapped(ViewAllPostsModel postDetail)

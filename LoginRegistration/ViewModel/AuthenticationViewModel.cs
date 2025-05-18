@@ -1,5 +1,6 @@
 ﻿using LoginRegistration.Model;
 using LoginRegistration.View;
+using Mopups.Services;
 using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -112,11 +113,13 @@ namespace LoginRegistration.ViewModel
         {
             try
             {
+                await MopupService.Instance.PushAsync(new LoginViewLoading());
                 var getAllDataResponse = await _client.GetFromJsonAsync<List<AuthenticationModel>>(apiAddress);
                 var getUserId = getAllDataResponse?.FirstOrDefault(u => u.username.Equals(GetUsername, StringComparison.Ordinal) && u.password.Equals(GetPassword, StringComparison.Ordinal));
                 if (getUserId == null)
                 {
                     await App.Current.MainPage.DisplayAlert("Error", "Invalid credentials, retry again", "OK");
+                    await MopupService.Instance.PopAsync();
                     return;
                 }
                 var userId = $"{apiAddress}/{getUserId.id}";
@@ -126,6 +129,7 @@ namespace LoginRegistration.ViewModel
                 {
                     getUser = deserialize;
                     App.Current.MainPage = new Homepage(getUser);
+                    await MopupService.Instance.PopAsync();
                 }
             }
             catch (Exception ex)
@@ -154,6 +158,7 @@ namespace LoginRegistration.ViewModel
                 var response = await _client.PostAsJsonAsync(apiAddress, newUser);
                 if (response.IsSuccessStatusCode)
                 {
+                    await MopupService.Instance.PopAsync();
                     return true;
                 }
             }

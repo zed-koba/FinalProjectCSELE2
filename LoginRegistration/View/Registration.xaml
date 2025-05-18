@@ -37,10 +37,10 @@
                 CornerRadius="12">
                 <Grid ColumnDefinitions="51, *">
                     <Label
-                        FontFamily="FontelloFamily"
+                        FontFamily="FAsolid"
                         FontSize="24"
                         HorizontalTextAlignment="Center"
-                        Text="&#xE801;"
+                        Text="&#xF02B;"
                         TextColor="White"
                         VerticalTextAlignment="Center"
                         WidthRequest="61" />
@@ -48,10 +48,10 @@
                         x:Name="txtName"
                         Grid.Column="1"
                         Margin="-5,0,0,0"
-                        FontSize="14"
+                        FontSize="16"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
-                        Placeholder="Username"
+                        Placeholder="Full Name"
                         PlaceholderColor="#666666"
                         Text="{Binding GetFullName}"
                         TextColor="White" />
@@ -65,10 +65,10 @@
                 CornerRadius="12">
                 <Grid ColumnDefinitions="51, *">
                     <Label
-                        FontFamily="FontelloFamily"
+                        FontFamily="FAsolid"
                         FontSize="24"
                         HorizontalTextAlignment="Center"
-                        Text="&#xE801;"
+                        Text="&#xF007;"
                         TextColor="White"
                         VerticalTextAlignment="Center"
                         WidthRequest="61" />
@@ -76,7 +76,7 @@
                         x:Name="txtUsername"
                         Grid.Column="1"
                         Margin="-5,0,0,0"
-                        FontSize="14"
+                        FontSize="16"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Username"
@@ -93,10 +93,10 @@
                 CornerRadius="12">
                 <Grid ColumnDefinitions="51, *">
                     <Label
-                        FontFamily="FontelloFamily"
+                        FontFamily="FAsolid"
                         FontSize="24"
                         HorizontalTextAlignment="Center"
-                        Text="&#xE801;"
+                        Text="&#xF0E0;"
                         TextColor="White"
                         VerticalTextAlignment="Center"
                         WidthRequest="61" />
@@ -104,7 +104,7 @@
                         x:Name="txtEmail"
                         Grid.Column="1"
                         Margin="-5,0,0,0"
-                        FontSize="14"
+                        FontSize="16"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Email Address"
@@ -121,10 +121,10 @@
                 CornerRadius="12">
                 <Grid ColumnDefinitions="51, *">
                     <Label
-                        FontFamily="FontelloFamily"
+                        FontFamily="FAsolid"
                         FontSize="24"
                         HorizontalTextAlignment="Center"
-                        Text="&#xE800;"
+                        Text="&#xF084;"
                         TextColor="White"
                         VerticalTextAlignment="Center"
                         WidthRequest="61" />
@@ -132,7 +132,7 @@
                         x:Name="txtPassword"
                         Grid.Column="1"
                         Margin="-5,0,0,0"
-                        FontSize="14"
+                        FontSize="16"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="True"
@@ -150,10 +150,10 @@
                 CornerRadius="12">
                 <Grid ColumnDefinitions="51, *">
                     <Label
-                        FontFamily="FontelloFamily"
+                        FontFamily="FAsolid"
                         FontSize="24"
                         HorizontalTextAlignment="Center"
-                        Text="&#xE800;"
+                        Text="&#xF084;"
                         TextColor="White"
                         VerticalTextAlignment="Center"
                         WidthRequest="61" />
@@ -161,7 +161,7 @@
                         x:Name="txtconfirmPass"
                         Grid.Column="1"
                         Margin="-5,0,0,0"
-                        FontSize="14"
+                        FontSize="16"
                         HeightRequest="55"
                         HorizontalOptions="FillAndExpand"
                         IsPassword="True"
@@ -174,10 +174,11 @@
                 <CheckBox
                     x:Name="AgreeCheckBox"
                     IsChecked="False"
+                    VerticalOptions="Center"
                     Color="#ff4654" />
                 <Label
                     FontAttributes="None"
-                    FontSize="14"
+                    FontSize="16"
                     Text="I agree to terms and condition"
                     TextColor="White"
                     VerticalOptions="Center"
@@ -188,13 +189,14 @@
                 BackgroundColor="#FB3137"
                 Clicked="createAccount_Clicked"
                 CornerRadius="12"
-                FontAttributes="None"
-                FontSize="16"
+                FontAttributes="Bold"
+                FontFamily="PoppinsMedium"
+                FontSize="18"
                 Text="Create Account" />
         </VerticalStackLayout>
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
             <Label
-                FontSize="14"
+                FontSize="16"
                 Text="Already have an account?"
                 TextColor="White" />
             <Label

@@ -25,7 +25,7 @@
             <Image
                 Aspect="AspectFill"
                 HeightRequest="140"
-                Source="defaultAvatar.jpg"
+                Source="{Binding NewAvatar}"
                 WidthRequest="140">
                 <Image.Clip>
                     <RoundRectangleGeometry CornerRadius="70" Rect="0,0,140,140" />
@@ -53,20 +53,26 @@
                         HorizontalTextAlignment="Center"
                         Text="Change Avatar"
                         TextColor="White" />
-                    <FlexLayout Direction="Row" Wrap="Wrap">
+                    <FlexLayout
+                        x:Name="flexLayout"
+                        Direction="Row"
+                        Wrap="Wrap">
                         <Border
                             Margin="0,3,3,0"
                             HeightRequest="88"
                             HorizontalOptions="Center"
-                            Stroke="#FB3137"
+                            Stroke="#888"
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/bMHVdYrs/default-Avatar.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -79,8 +85,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/gZ5CchnT/avatar2.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -93,8 +102,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/Y76f6GT7/avatar3.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -107,8 +119,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/ym6G4yJw/avatar4.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -121,8 +136,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/x82MBLmM/avatar5.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -135,8 +153,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/pjDgLSHj/avatar6.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -149,8 +170,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/Gf2RBcdc/avatar7.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -163,8 +187,11 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/kR68cFq/avatar8.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
                         <Border
                             Margin="0,3,3,0"
@@ -177,14 +204,17 @@
                             <Image
                                 Aspect="AspectFill"
                                 HeightRequest="88"
-                                Source="defaultAvatar.jpg"
+                                Source="https://i.ibb.co/Kp9JfjLD/avatar9.jpg"
                                 WidthRequest="88" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Border.GestureRecognizers>
                         </Border>
-
                     </FlexLayout>
                     <Button
                         Margin="0,20,0,0"
                         BackgroundColor="#FB3137"
+                        Clicked="Button_Clicked"
                         FontAttributes="Bold"
                         FontFamily="PoppinsMedium"
                         FontSize="16"
@@ -196,7 +226,11 @@
                         HorizontalTextAlignment="Center"
                         Text="Cancel"
                         TextColor="White"
-                        TextDecorations="Underline" />
+                        TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </VerticalStackLayout>
             </Grid>
         </Frame>
