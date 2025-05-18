@@ -10,7 +10,7 @@
             Aspect="AspectFit"
             HeightRequest="108"
             HorizontalOptions="Center"
-            Source="logo.png"
+            Source="logo2.png"
             WidthRequest="104" />
         <Label
             FontFamily="OpenSansSemibold"

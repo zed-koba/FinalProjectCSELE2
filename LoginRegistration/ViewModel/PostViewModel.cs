@@ -137,7 +137,6 @@ namespace LoginRegistration.ViewModel
                         allPosts.Insert(index, targetPost);
                     }
                 }
-                //await refreshFeedAsync();
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@
             <Image
                 Aspect="AspectFill"
                 HeightRequest="80"
-                Source="logo.png"
+                Source="logo1.png"
                 WidthRequest="74" />
             <Label
                 FontAttributes="Bold"
