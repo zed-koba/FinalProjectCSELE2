@@ -19,6 +19,7 @@ namespace LoginRegistration.ViewModel
         private ViewAllPostsModel postDetails = new();
         public ObservableCollection<ViewAllCommentsModel> commentDetails { get; set; } = new();
         private ObservableCollection<CommentModel> comments { get; set; } = new();
+        private AuthenticationModel userDetail = new();
         private string _getPostComment;
 
         #endregion privateAttributes
@@ -44,13 +45,15 @@ namespace LoginRegistration.ViewModel
             set
             {
                 postDetails = value;
-                OnPropertyChanged(nameof(postDetails));
+                OnPropertyChanged(nameof(PostDetails));
             }
         }
 
         public ICommand GetPostData { get; }
         public ICommand showWriteComment { get; }
         public ICommand updatePostComments { get; }
+        public ICommand closeCommentPost { get; }
+        public ICommand likeAPost { get; }
 
         #endregion publicAttributes
 
@@ -64,6 +67,42 @@ namespace LoginRegistration.ViewModel
             GetPostData = new Command(async () => await GetPostDataAsync());
             showWriteComment = new Command(async () => await showWriteCommentAsync());
             updatePostComments = new Command(async () => await updatePostCommentsAsync());
+            closeCommentPost = new Command(async () => await MopupService.Instance.PopAsync());
+            likeAPost = new Command(OnLikeIconTapped);
+        }
+
+        private async void OnLikeIconTapped()
+        {
+            try
+            {
+                var GetPostDetailsUrl = $"{apiUrl}/UserDetails/{PostDetails.UserDetailId}/UserInteractions/{PostDetails.postId}";
+                var newData = new UserInteractionModel()
+                {
+                    Posts = PostDetails.Posts,
+                    UserDetailId = PostDetails.UserDetailId,
+                    postId = PostDetails.postId,
+                };
+                var checkIfLiked = PostDetails.Posts.like.IndexOf(currentUserId);
+                if (checkIfLiked == -1)
+                {
+                    newData.Posts.like.Add($"{currentUserId}");
+                    PostDetails.likeColor = "#FB3137";
+                    PostDetails.iconFont = "FAsolid";
+                    PostDetails.Posts.like = newData.Posts.like;
+                }
+                else
+                {
+                    newData.Posts.like.RemoveAt(checkIfLiked);
+                    PostDetails.likeColor = "White";
+                    PostDetails.iconFont = "FAregular";
+                    PostDetails.Posts.like = newData.Posts.like;
+                }
+                var updatePostLike = await _httpClient.PutAsJsonAsync(GetPostDetailsUrl, newData);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
         public async Task GetCommentUserDetails()
@@ -91,6 +130,16 @@ namespace LoginRegistration.ViewModel
             }
         }
 
+        public async Task GetUserDetails()
+        {
+            var userUrl = $"{apiUrl}/UserDetails/{currentUserId}";
+            var getUserDetail = await _httpClient.GetFromJsonAsync<AuthenticationModel>(userUrl);
+            if (getUserDetail != null)
+            {
+                userDetail = getUserDetail;
+            }
+        }
+
         private async Task updatePostCommentsAsync()
         {
             try
@@ -105,8 +154,11 @@ namespace LoginRegistration.ViewModel
                 };
                 comments.Add(newComment);
                 postDetails.Posts.comments = comments;
+                userDetail.totalComments = userDetail.totalComments + 1;
                 var getPostUrl = $"{apiUrl}/UserDetails/{postDetails.UserDetailId}/UserInteractions/{postDetails.postId}";
+                var userUrl = $"{apiUrl}/UserDetails/{currentUserId}";
                 var updatePostData = await _httpClient.PutAsJsonAsync(getPostUrl, postDetails);
+                var updateTotalComment = await _httpClient.PutAsJsonAsync(userUrl, userDetail);
                 if (updatePostData.IsSuccessStatusCode)
                 {
                     commentDetails.Add(new ViewAllCommentsModel

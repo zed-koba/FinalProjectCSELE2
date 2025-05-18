@@ -78,6 +78,7 @@ namespace LoginRegistration.ViewModel
         public ICommand refreshFeed { get; }
 
         public ICommand showTappedPost { get; }
+        public ICommand likeAPost { get; }
 
         #endregion publicDeclarations
 
@@ -91,11 +92,57 @@ namespace LoginRegistration.ViewModel
             uploadAPhoto = new Command(async () => await uploadAPhotoAsync());
             refreshFeed = new Command(async () => await refreshFeedAsync());
             showTappedPost = new Command<ViewAllPostsModel>(OnImageTapped);
+            likeAPost = new Command<ViewAllPostsModel>(OnLikeIconTapped);
         }
 
         private async void OnImageTapped(ViewAllPostsModel postDetail)
         {
             await MopupService.Instance.PushAsync(new PostComment(postDetail, GetCurrentUserID));
+        }
+
+        private async void OnLikeIconTapped(ViewAllPostsModel postDetail)
+        {
+            try
+            {
+                var GetPostDetailsUrl = $"{apiUrl}/UserDetails/{postDetail.UserDetailId}/UserInteractions/{postDetail.postId}";
+                var newData = new UserInteractionModel()
+                {
+                    Posts = postDetail.Posts,
+                    UserDetailId = postDetail.UserDetailId,
+                    postId = postDetail.postId,
+                };
+                var checkIfLiked = postDetail.Posts.like.IndexOf(GetCurrentUserID);
+                bool ifLiked = false;
+                if (checkIfLiked == -1)
+                {
+                    newData.Posts.like.Add($"{GetCurrentUserID}");
+                    ifLiked = false;
+                }
+                else
+                {
+                    newData.Posts.like.RemoveAt(checkIfLiked);
+                    ifLiked = true;
+                }
+                var updatePostLike = await _httpClient.PutAsJsonAsync(GetPostDetailsUrl, newData);
+                var targetPost = allPosts.FirstOrDefault(u => u.postId == postDetail.postId);
+                if (targetPost != null)
+                {
+                    targetPost.Posts.like = newData.Posts.like;
+                    targetPost.likeColor = ifLiked ? "White" : "#FB3137";
+                    targetPost.iconFont = ifLiked ? "FAregular" : "FAsolid";
+                    var index = allPosts.IndexOf(targetPost);
+                    if (index != -1)
+                    {
+                        allPosts.RemoveAt(index);
+                        allPosts.Insert(index, targetPost);
+                    }
+                }
+                //await refreshFeedAsync();
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
         public async Task refreshFeedAsync()
@@ -115,6 +162,11 @@ namespace LoginRegistration.ViewModel
                     var user = getUserInfo.FirstOrDefault(x => x.id == post.UserDetailId);
                     post.avatar = user?.avatar!;
                     post.fullName = user?.fullName!;
+                    bool isLiked = post.Posts.like.Any(like => like != null &&
+                        like.Contains(GetCurrentUserID));
+
+                    post.likeColor = isLiked ? "#FB3137" : "White";
+                    post.iconFont = isLiked ? "FAsolid" : "FAregular";
                     allPosts.Add(post);
                 }
             }
@@ -194,7 +246,7 @@ namespace LoginRegistration.ViewModel
                         caption = GetCaption,
                         timeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                         comments = new ObservableCollection<CommentModel>(),
-                        like = new ObservableCollection<LikeModel>()
+                        like = new ObservableCollection<string>()
                     },
                     UserDetailId = GetCurrentUserID
                 };

@@ -122,14 +122,18 @@
                                         <FlexLayout JustifyContent="SpaceBetween">
                                             <HorizontalStackLayout Spacing="5">
                                                 <Label
-                                                    FontFamily="FAregular"
+                                                    FontFamily="{Binding iconFont}"
                                                     FontSize="24"
                                                     Text="&#xF004;"
-                                                    TextColor="White"
-                                                    VerticalTextAlignment="Center" />
+                                                    TextColor="{Binding likeColor}"
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.likeAPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Label
                                                     FontSize="14"
-                                                    Text="0"
+                                                    Text="{Binding Posts.like.Count}"
                                                     TextColor="White"
                                                     VerticalTextAlignment="Center" />
                                                 <Label
@@ -138,10 +142,14 @@
                                                     FontSize="24"
                                                     Text="&#xF075;"
                                                     TextColor="White"
-                                                    VerticalTextAlignment="Center" />
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Label
                                                     FontSize="14"
-                                                    Text="0"
+                                                    Text="{Binding Posts.comments.Count}"
                                                     TextColor="White"
                                                     VerticalTextAlignment="Center" />
                                             </HorizontalStackLayout>

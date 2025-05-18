@@ -43,6 +43,9 @@
                         TextColor="White"
                         VerticalTextAlignment="Center" />
                 </HorizontalStackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding closeCommentPost}" />
+                </Frame.GestureRecognizers>
             </Frame>
 
             <!--  Post Section  -->
@@ -97,26 +100,18 @@
                     <FlexLayout JustifyContent="SpaceBetween">
                         <HorizontalStackLayout Spacing="5">
                             <Label
-                                FontFamily="FAregular"
+                                FontFamily="{Binding PostDetails.iconFont}"
                                 FontSize="24"
                                 Text="&#xF004;"
-                                TextColor="White"
-                                VerticalTextAlignment="Center" />
+                                TextColor="{Binding PostDetails.likeColor}"
+                                VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding likeAPost}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                             <Label
                                 FontSize="14"
-                                Text="0"
-                                TextColor="White"
-                                VerticalTextAlignment="Center" />
-                            <Label
-                                Margin="10,0,0,0"
-                                FontFamily="FAregular"
-                                FontSize="24"
-                                Text="&#xF075;"
-                                TextColor="White"
-                                VerticalTextAlignment="Center" />
-                            <Label
-                                FontSize="14"
-                                Text="0"
+                                Text="{Binding PostDetails.Posts.like.Count}"
                                 TextColor="White"
                                 VerticalTextAlignment="Center" />
                         </HorizontalStackLayout>
@@ -136,7 +131,7 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="16"
-                    Text=" (16)"
+                    Text="{Binding commentDetails.Count, StringFormat=' ({0})'}"
                     TextColor="#888888" />
             </HorizontalStackLayout>
         </VerticalStackLayout>

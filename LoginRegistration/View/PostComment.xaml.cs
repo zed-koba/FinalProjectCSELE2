@@ -13,5 +13,6 @@ public partial class PostComment : PopupPage
         BindingContext = viewModel;
 
         _ = viewModel.GetCommentUserDetails();
+        _ = viewModel.GetUserDetails();
     }
 }
