@@ -1,5 +1,6 @@
 using LoginRegistration.Model;
 using LoginRegistration.ViewModel;
+using Mopups.Services;
 
 namespace LoginRegistration.View;
 
@@ -16,8 +17,9 @@ public partial class ProfilePage : ContentPage
         vm.refreshProfile.Execute(null);
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         App.Current.MainPage = new Homepage(UserDetails);
+        await MopupService.Instance.PushAsync(new LoginViewLoading());
     }
 }
