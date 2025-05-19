@@ -1,4 +1,5 @@
-﻿using LoginRegistration.Model;
+﻿using Android.Widget;
+using LoginRegistration.Model;
 using LoginRegistration.View;
 using Mopups.Services;
 using System.Collections.ObjectModel;
@@ -23,6 +24,7 @@ namespace LoginRegistration.ViewModel
         private FileResult? result;
         private string _getImageName = "File Name";
         private bool isRefreshing;
+        private bool uploadedAPic = false;
 
         #endregion privateDeclarations
 
@@ -207,7 +209,11 @@ namespace LoginRegistration.ViewModel
                     return;
 
                 if (result != null)
+                {
                     GetImageName = result.FileName;
+                    uploadedAPic = true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -230,53 +236,60 @@ namespace LoginRegistration.ViewModel
             await MopupService.Instance.PushAsync(new LoadingScreen());
             try
             {
-                //Upload the picked file to Imgur API
-                using var stream = await result!.OpenReadAsync();
-                using var ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-                var imageBytes = ms.ToArray();
-                string base64Image = Convert.ToBase64String(imageBytes);
+                if (uploadedAPic)
+                {
+                    //Upload the picked file to Imgur API
+                    using var stream = await result!.OpenReadAsync();
+                    using var ms = new MemoryStream();
+                    await stream.CopyToAsync(ms);
+                    var imageBytes = ms.ToArray();
+                    string base64Image = Convert.ToBase64String(imageBytes);
 
-                using var _uploadClient = new HttpClient();
-                _uploadClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", clientID);
+                    using var _uploadClient = new HttpClient();
+                    _uploadClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", clientID);
 
-                var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                    var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"image", base64Image},
                     {"type", "base64" }
                 });
 
-                var response = await _uploadClient.PostAsync("https://api.imgur.com/3/image", content);
-                response.EnsureSuccessStatusCode();
+                    var response = await _uploadClient.PostAsync("https://api.imgur.com/3/image", content);
+                    response.EnsureSuccessStatusCode();
 
-                //getting the upload Image link
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var json = JsonDocument.Parse(jsonString);
-                _getImageLink = json.RootElement.GetProperty("data").GetProperty("link").GetString();
+                    //getting the upload Image link
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var json = JsonDocument.Parse(jsonString);
+                    _getImageLink = json.RootElement.GetProperty("data").GetProperty("link").GetString();
 
-                //POST / Add the data to the MockAPI
+                    //POST / Add the data to the MockAPI
 
-                var newPost = new UserInteractionModel()
-                {
-                    Posts = new PostModel()
+                    var newPost = new UserInteractionModel()
                     {
-                        imageSource = _getImageLink!,
-                        caption = GetCaption,
-                        timeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                        comments = new ObservableCollection<CommentModel>(),
-                        like = new ObservableCollection<string>()
-                    },
-                    UserDetailId = GetCurrentUserID
-                };
-                CurrentUserDetail.totalPosts = CurrentUserDetail.totalPosts + 1;
-                var getUserUrl = $"{apiUrl}/UserInteractions";
-                var GetUserDetails = $"{apiUrl}/UserDetails/{GetCurrentUserID}";
-                var addNewPost = await _httpClient.PostAsJsonAsync(getUserUrl, newPost);
-                var updateTotalPosts = await _httpClient.PutAsJsonAsync(GetUserDetails, CurrentUserDetail);
-                if (addNewPost.IsSuccessStatusCode)
+                        Posts = new PostModel()
+                        {
+                            imageSource = _getImageLink!,
+                            caption = GetCaption,
+                            timeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                            comments = new ObservableCollection<CommentModel>(),
+                            like = new ObservableCollection<string>()
+                        },
+                        UserDetailId = GetCurrentUserID
+                    };
+                    CurrentUserDetail.totalPosts = CurrentUserDetail.totalPosts + 1;
+                    var getUserUrl = $"{apiUrl}/UserInteractions";
+                    var GetUserDetails = $"{apiUrl}/UserDetails/{GetCurrentUserID}";
+                    var addNewPost = await _httpClient.PostAsJsonAsync(getUserUrl, newPost);
+                    var updateTotalPosts = await _httpClient.PutAsJsonAsync(GetUserDetails, CurrentUserDetail);
+                    if (addNewPost.IsSuccessStatusCode)
+                    {
+                        await closeNewPostAsync();
+                        await closeNewPostAsync();
+                    }
+                }else
                 {
-                    await closeNewPostAsync();
-                    await closeNewPostAsync();
+                    await App.Current.MainPage.DisplayAlert("Warning", "Fill all the fields.", "OK");
+                    await MopupService.Instance.PopAsync();
                 }
             }
             catch (Exception ex)

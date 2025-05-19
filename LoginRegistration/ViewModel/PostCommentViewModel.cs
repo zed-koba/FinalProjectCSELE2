@@ -217,39 +217,47 @@ namespace LoginRegistration.ViewModel
         {
             try
             {
-                string uniqueCommentId = $"comms_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}_{Random.Shared.Next(1000, 9999)}";
-                var newComment = new CommentModel
+                if (!string.IsNullOrEmpty(GetPostComment))
                 {
-                    userId = userDetail.id,
-                    commentId = uniqueCommentId,
-                    commentPost = GetPostComment,
-                    commentTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
-                };
-                comments.Add(newComment);
-                postDetails.Posts.comments = comments;
-                userDetail.totalComments = userDetail.totalComments + 1;
-                var newUpdatePosts = new UserInteractionModel
-                {
-                    Posts = postDetails.Posts,
-                    UserDetailId = postDetails.UserDetailId,
-                    postId = postDetails.postId
-                };
-                var getPostUrl = $"{apiUrl}/UserDetails/{postDetails.UserDetailId}/UserInteractions/{postDetails.postId}";
-                var userUrl = $"{apiUrl}/UserDetails/{userDetail.id}";
-                var updatePostData = await _httpClient.PutAsJsonAsync(getPostUrl, newUpdatePosts);
-                var updateTotalComment = await _httpClient.PutAsJsonAsync(userUrl, userDetail);
-                if (updatePostData.IsSuccessStatusCode)
-                {
-                    commentDetails.Add(new ViewAllCommentsModel
+                    string uniqueCommentId = $"comms_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}_{Random.Shared.Next(1000, 9999)}";
+                    var newComment = new CommentModel
                     {
-                        userId = newComment.userId,
-                        commentId = newComment.commentId,
-                        commentPost = newComment.commentPost,
-                        commentTimeStamp = newComment.commentTimeStamp,
-                        avatar = userDetail.avatar,
-                        fullName = userDetail.fullName
-                    });
-                    await MopupService.Instance.PopAsync();
+                        userId = userDetail.id,
+                        commentId = uniqueCommentId,
+                        commentPost = GetPostComment,
+                        commentTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
+                    };
+                    comments.Add(newComment);
+                    postDetails.Posts.comments = comments;
+                    userDetail.totalComments = userDetail.totalComments + 1;
+                    var newUpdatePosts = new UserInteractionModel
+                    {
+                        Posts = postDetails.Posts,
+                        UserDetailId = postDetails.UserDetailId,
+                        postId = postDetails.postId
+                    };
+                    var getPostUrl = $"{apiUrl}/UserDetails/{postDetails.UserDetailId}/UserInteractions/{postDetails.postId}";
+                    var userUrl = $"{apiUrl}/UserDetails/{userDetail.id}";
+                    var updatePostData = await _httpClient.PutAsJsonAsync(getPostUrl, newUpdatePosts);
+                    var updateTotalComment = await _httpClient.PutAsJsonAsync(userUrl, userDetail);
+                    if (updatePostData.IsSuccessStatusCode)
+                    {
+                        commentDetails.Add(new ViewAllCommentsModel
+                        {
+                            userId = newComment.userId,
+                            commentId = newComment.commentId,
+                            commentPost = newComment.commentPost,
+                            commentTimeStamp = newComment.commentTimeStamp,
+                            avatar = userDetail.avatar,
+                            fullName = userDetail.fullName
+                        });
+                        await MopupService.Instance.PopAsync();
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Warning", "Fill the caption field.", "OK");
+                    
                 }
             }
             catch (Exception ex)

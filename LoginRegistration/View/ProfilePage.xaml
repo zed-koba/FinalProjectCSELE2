@@ -146,15 +146,6 @@
             <!--  single Line  -->
             <BoxView HeightRequest="1" Color="White" />
 
-            <!--  New Post Button  -->
-            <Button
-                Margin="0,5,0,0"
-                BackgroundColor="#FB3137"
-                CornerRadius="12"
-                HorizontalOptions="FillAndExpand"
-                Text="new post +"
-                TextColor="White" />
-
             <!--  Posts Grid  -->
             <FlexLayout
                 x:Name="flexLayout"
