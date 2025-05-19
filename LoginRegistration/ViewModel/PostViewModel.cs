@@ -268,8 +268,11 @@ namespace LoginRegistration.ViewModel
                     },
                     UserDetailId = GetCurrentUserID
                 };
+                CurrentUserDetail.totalPosts = CurrentUserDetail.totalPosts + 1;
                 var getUserUrl = $"{apiUrl}/UserInteractions";
+                var GetUserDetails = $"{apiUrl}/UserDetails/{GetCurrentUserID}";
                 var addNewPost = await _httpClient.PostAsJsonAsync(getUserUrl, newPost);
+                var updateTotalPosts = await _httpClient.PutAsJsonAsync(GetUserDetails, CurrentUserDetail);
                 if (addNewPost.IsSuccessStatusCode)
                 {
                     await closeNewPostAsync();

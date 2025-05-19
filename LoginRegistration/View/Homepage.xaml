@@ -3,6 +3,7 @@
     x:Class="LoginRegistration.View.Homepage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:local="clr-namespace:LoginRegistration.Features"
     Title="Homepage"
     BackgroundColor="#121312">
@@ -11,7 +12,7 @@
     </ContentPage.Resources>
     <Grid
         Margin="0,10,0,0"
-        Padding="15"
+        Padding="15,15,15,0"
         RowDefinitions="Auto, *"
         RowSpacing="20">
         <!--  Header  -->
@@ -80,15 +81,16 @@
                                         VerticalOptions="FillAndExpand">
                                         <FlexLayout JustifyContent="SpaceBetween">
                                             <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                                                <Image
+                                                <ffimageloading:CachedImage
                                                     Aspect="AspectFill"
                                                     HeightRequest="24"
+                                                    LoadingPlaceholder="brainrotting.gif"
                                                     Source="{Binding avatar}"
                                                     WidthRequest="24">
-                                                    <Image.Clip>
+                                                    <ffimageloading:CachedImage.Clip>
                                                         <RoundRectangleGeometry CornerRadius="12" Rect="0,0,24,24" />
-                                                    </Image.Clip>
-                                                </Image>
+                                                    </ffimageloading:CachedImage.Clip>
+                                                </ffimageloading:CachedImage>
                                                 <Label
                                                     FontSize="14"
                                                     Text="{Binding fullName}"
@@ -103,9 +105,10 @@
                                             BorderColor="Transparent"
                                             CornerRadius="0"
                                             HeightRequest="131">
-                                            <Image
+                                            <ffimageloading:CachedImage
                                                 Aspect="AspectFit"
                                                 HorizontalOptions="Center"
+                                                LoadingPlaceholder="brainrotting.gif"
                                                 Source="{Binding Posts.imageSource}"
                                                 VerticalOptions="Center" />
                                             <Frame.GestureRecognizers>

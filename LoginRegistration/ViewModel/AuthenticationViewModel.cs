@@ -129,7 +129,6 @@ namespace LoginRegistration.ViewModel
                 {
                     getUser = deserialize;
                     App.Current.MainPage = new Homepage(getUser);
-                    await MopupService.Instance.PopAsync();
                 }
             }
             catch (Exception ex)

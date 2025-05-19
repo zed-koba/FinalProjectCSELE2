@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:local="clr-namespace:LoginRegistration.Features"
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     Title="PostComment"
@@ -56,15 +57,16 @@
                 <VerticalStackLayout Padding="10" Spacing="5">
                     <FlexLayout Padding="2,0,2,0" JustifyContent="SpaceBetween">
                         <HorizontalStackLayout Spacing="10">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="32"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="{Binding PostDetails.avatar}"
                                 WidthRequest="32">
-                                <Image.Clip>
+                                <ffimageloading:CachedImage.Clip>
                                     <RoundRectangleGeometry CornerRadius="16" Rect="0,0,32,32" />
-                                </Image.Clip>
-                            </Image>
+                                </ffimageloading:CachedImage.Clip>
+                            </ffimageloading:CachedImage>
                             <Label
                                 FontAttributes="None"
                                 FontSize="14"
@@ -89,7 +91,7 @@
                         BorderColor="Transparent"
                         CornerRadius="8"
                         HeightRequest="250">
-                        <Image
+                        <ffimageloading:CachedImage
                             Aspect="AspectFit"
                             HorizontalOptions="Center"
                             Source="{Binding PostDetails.Posts.imageSource}"
@@ -157,16 +159,17 @@
                                 Padding="10"
                                 ColumnDefinitions="Auto, *"
                                 ColumnSpacing="5">
-                                <Image
+                                <ffimageloading:CachedImage
                                     Aspect="AspectFill"
                                     HeightRequest="36"
+                                    LoadingPlaceholder="brainrotting.gif"
                                     Source="{Binding avatar}"
                                     VerticalOptions="Start"
                                     WidthRequest="36">
-                                    <Image.Clip>
+                                    <ffimageloading:CachedImage.Clip>
                                         <RoundRectangleGeometry CornerRadius="18" Rect="0,0,36,36" />
-                                    </Image.Clip>
-                                </Image>
+                                    </ffimageloading:CachedImage.Clip>
+                                </ffimageloading:CachedImage>
                                 <VerticalStackLayout
                                     Grid.Column="1"
                                     Margin="5,0,0,0"

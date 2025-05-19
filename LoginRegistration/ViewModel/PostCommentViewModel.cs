@@ -135,9 +135,13 @@ namespace LoginRegistration.ViewModel
             try
             {
                 var getPostUrl = $"{apiUrl}/UserDetails/{userDetail.id}/UserInteractions/{PostDetails.postId}";
+                var GetUserDetails = $"{apiUrl}/UserDetails/{userDetail.id}";
+
                 var deletePostOn = await _httpClient.DeleteAsync(getPostUrl);
                 if (deletePostOn.IsSuccessStatusCode)
                 {
+                    userDetail.totalPosts = userDetail.totalPosts - 1;
+                    var updateTotalPosts = await _httpClient.PutAsJsonAsync(GetUserDetails, userDetail);
                     await MopupService.Instance.PopAsync();
                     await MopupService.Instance.PopAsync();
                 }

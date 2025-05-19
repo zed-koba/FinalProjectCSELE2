@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using FFImageLoading.Maui;
 using Microsoft.Extensions.Logging;
 using Mopups.Hosting;
 
@@ -13,6 +14,7 @@ namespace LoginRegistration
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .ConfigureMopups()
+                .UseFFImageLoading()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("Poppins-Regular.ttf", "OpenSansRegular");

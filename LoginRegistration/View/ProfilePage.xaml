@@ -3,6 +3,7 @@
     x:Class="LoginRegistration.View.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     Title="ProfilePage">
     <ScrollView Background="#141414">
         <VerticalStackLayout
@@ -22,7 +23,7 @@
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                     </Label.GestureRecognizers>
                 </Label>
-                <Image
+                <ffimageloading:CachedImage
                     Aspect="AspectFill"
                     HeightRequest="57"
                     Source="logo1.png"
@@ -44,15 +45,16 @@
                 VerticalOptions="StartAndExpand">
                 <Grid ColumnDefinitions="Auto, *">
                     <!--  Profile Picture  -->
-                    <Image
+                    <ffimageloading:CachedImage
                         Aspect="AspectFill"
                         HeightRequest="66"
+                        LoadingPlaceholder="brainrotting.gif"
                         Source="{Binding NewAvatar}"
                         WidthRequest="66">
-                        <Image.Clip>
+                        <ffimageloading:CachedImage.Clip>
                             <RoundRectangleGeometry CornerRadius="33" Rect="0,0,66,66" />
-                        </Image.Clip>
-                    </Image>
+                        </ffimageloading:CachedImage.Clip>
+                    </ffimageloading:CachedImage>
                     <VerticalStackLayout
                         Grid.Column="1"
                         Margin="15,0,0,0"
@@ -168,7 +170,7 @@
                             CornerRadius="12"
                             HorizontalOptions="StartAndExpand"
                             VerticalOptions="StartAndExpand">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="80"
                                 Source="{Binding Posts.imageSource}"

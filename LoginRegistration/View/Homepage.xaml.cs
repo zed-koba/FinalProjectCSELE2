@@ -1,5 +1,6 @@
 using LoginRegistration.Model;
 using LoginRegistration.ViewModel;
+using Mopups.Services;
 
 namespace LoginRegistration.View;
 
@@ -16,7 +17,17 @@ public partial class Homepage : ContentPage
         vm.GetCurrentUserID = userGet.id;
         vm.CurrentUserDetail = userGet;
         BindingContext = vm;
-        vm.refreshFeed.Execute(null);
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is PostViewModel vm)
+        {
+            await vm.refreshFeedAsync();
+            if (MopupService.Instance.PopupStack.Any())
+                await MopupService.Instance.PopAsync();
+        }
     }
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
