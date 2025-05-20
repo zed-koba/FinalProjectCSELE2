@@ -58,8 +58,8 @@ public partial class Registration : ContentPage
             }
             App.Current.MainPage = new MainPage();
             vm.AddUser.Execute(null);
-            await App.Current.MainPage.DisplayAlert("Announcement", "Successfully Registered", "OK");
             await MopupService.Instance.PopAsync();
+            await App.Current.MainPage.DisplayAlert("Announcement", "Successfully Registered", "OK");
         }
 
         // Clear form fields

@@ -23,15 +23,15 @@
             VerticalOptions="Center"
             WidthRequest="140"
             ZIndex="99">
-            <Image
+            <ffimageloading:CachedImage
                 Aspect="AspectFill"
                 HeightRequest="140"
                 Source="{Binding NewAvatar}"
                 WidthRequest="140">
-                <Image.Clip>
+                <ffimageloading:CachedImage.Clip>
                     <RoundRectangleGeometry CornerRadius="70" Rect="0,0,140,140" />
-                </Image.Clip>
-            </Image>
+                </ffimageloading:CachedImage.Clip>
+            </ffimageloading:CachedImage>
         </Border>
         <Frame
             Grid.Row="1"

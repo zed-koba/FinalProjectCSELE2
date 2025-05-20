@@ -206,6 +206,7 @@ namespace LoginRegistration.ViewModel
             NewAvatar = UserDetails.avatar;
 
             await MopupService.Instance.PopAsync();
+            await MopupService.Instance.PopAsync();
         }
 
         private async Task showChangeAvatarAsync()
@@ -228,6 +229,7 @@ namespace LoginRegistration.ViewModel
                     var updateUserDetails = await _httpClient.PutAsJsonAsync(getUserUrl, UserDetails);
                     if (updateUserDetails.IsSuccessStatusCode)
                     {
+                        await MopupService.Instance.PopAsync();
                         await MopupService.Instance.PopAsync();
                     }
                 }
