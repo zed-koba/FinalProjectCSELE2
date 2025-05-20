@@ -223,7 +223,7 @@ namespace LoginRegistration.ViewModel
         {
             try
             {
-                if (!string.IsNullOrEmpty(GetPostComment))
+                if (!string.IsNullOrEmpty(GetPostComment) && !string.IsNullOrWhiteSpace(GetPostComment))
                 {
                     string uniqueCommentId = $"comms_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}_{Random.Shared.Next(1000, 9999)}";
                     var newComment = new CommentModel
