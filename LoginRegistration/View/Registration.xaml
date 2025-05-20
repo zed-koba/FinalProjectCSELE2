@@ -199,25 +199,22 @@
                 TextColor="White" />
         </VerticalStackLayout>
         <StackLayout HorizontalOptions="Center" Spacing="10">
-            <Label
-                FontSize="16"
-                Text="Already have an account? Sign in"
-                TextColor="White">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Already have an account? " />
-                        <Span
-                            FontAttributes="Bold"
-                            Text="Sign in"
-                            TextColor="#FB3137"
-                            TextDecorations="Underline">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <HorizontalStackLayout Spacing="5">
+                <Label
+                    FontSize="16"
+                    Text="Already have an account?"
+                    TextColor="White" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Sign in"
+                    TextColor="#FB3137"
+                    TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
         </StackLayout>
     </VerticalStackLayout>
 </ContentPage>
