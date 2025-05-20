@@ -101,6 +101,12 @@ namespace LoginRegistration.ViewModel
             await MopupService.Instance.PopAsync();
         }
 
+        public async Task setVisiblity()
+        {
+            if (postDetails.UserDetailId == userDetail.id)
+                postDetails.isVisible = true;
+        }
+
         private async Task editPostAsync()
         {
             try
@@ -257,7 +263,6 @@ namespace LoginRegistration.ViewModel
                 else
                 {
                     await App.Current.MainPage.DisplayAlert("Warning", "Fill the caption field.", "OK");
-                    
                 }
             }
             catch (Exception ex)

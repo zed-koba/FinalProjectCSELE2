@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     Title="EditAvatar"
     BackgroundColor="#80000000"
@@ -65,9 +66,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/bMHVdYrs/default-Avatar.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -82,9 +84,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/gZ5CchnT/avatar2.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -99,9 +102,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/Y76f6GT7/avatar3.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -116,9 +120,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/ym6G4yJw/avatar4.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -133,9 +138,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/x82MBLmM/avatar5.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -150,9 +156,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/pjDgLSHj/avatar6.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -184,9 +191,11 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
+                                ErrorPlaceholder="logo1.png"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/kR68cFq/avatar8.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>
@@ -201,9 +210,10 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
+                                LoadingPlaceholder="brainrotting.gif"
                                 Source="https://i.ibb.co/Kp9JfjLD/avatar9.jpg"
                                 WidthRequest="88" />
                             <Border.GestureRecognizers>

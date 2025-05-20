@@ -157,7 +157,6 @@ namespace LoginRegistration.ViewModel
                 var response = await _client.PostAsJsonAsync(apiAddress, newUser);
                 if (response.IsSuccessStatusCode)
                 {
-                    await MopupService.Instance.PopAsync();
                     return true;
                 }
             }

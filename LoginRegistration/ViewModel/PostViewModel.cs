@@ -1,5 +1,4 @@
-﻿using Android.Widget;
-using LoginRegistration.Model;
+﻿using LoginRegistration.Model;
 using LoginRegistration.View;
 using Mopups.Services;
 using System.Collections.ObjectModel;
@@ -213,7 +212,6 @@ namespace LoginRegistration.ViewModel
                     GetImageName = result.FileName;
                     uploadedAPic = true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -286,7 +284,8 @@ namespace LoginRegistration.ViewModel
                         await closeNewPostAsync();
                         await closeNewPostAsync();
                     }
-                }else
+                }
+                else
                 {
                     await App.Current.MainPage.DisplayAlert("Warning", "Fill all the fields.", "OK");
                     await MopupService.Instance.PopAsync();

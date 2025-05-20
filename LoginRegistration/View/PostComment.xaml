@@ -77,6 +77,7 @@
                         <Label
                             FontFamily="FAsolid"
                             FontSize="24"
+                            IsVisible="{Binding PostDetails.isVisible}"
                             Text="&#xF141;"
                             TextColor="White"
                             VerticalTextAlignment="Center">
