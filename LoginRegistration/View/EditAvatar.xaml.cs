@@ -1,3 +1,4 @@
+using FFImageLoading.Maui;
 using LoginRegistration.ViewModel;
 using Mopups.Pages;
 using Mopups.Services;
@@ -17,7 +18,7 @@ public partial class EditAvatar : PopupPage
 
         foreach (var child in flexLayout.Children)
         {
-            if (child is Border border && border.Content is Image img && img.Source is UriImageSource uri)
+            if (child is Border border && border.Content is CachedImage img && img.Source is UriImageSource uri)
             {
                 if (uri.Uri.ToString() == vm.NewAvatar)
                 {
@@ -44,7 +45,7 @@ public partial class EditAvatar : PopupPage
                 }
             }
             tappedBorder.Stroke = Color.FromArgb("#FB3137");
-            if (tappedBorder.Content is Image image && image.Source is UriImageSource uri)
+            if (tappedBorder.Content is CachedImage image && image.Source is UriImageSource uri)
             {
                 source = uri.Uri.ToString()!;
                 profileViewModel.NewAvatar = source;

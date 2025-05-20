@@ -174,7 +174,7 @@
                             StrokeThickness="2"
                             VerticalOptions="Center"
                             WidthRequest="88">
-                            <Image
+                            <ffimageloading:CachedImage
                                 Aspect="AspectFill"
                                 HeightRequest="88"
                                 Source="https://i.ibb.co/Gf2RBcdc/avatar7.jpg"
