@@ -96,6 +96,8 @@ namespace LoginRegistration.ViewModel
         public ICommand cancelEditProfile { get; }
         public ICommand refreshProfile { get; }
         public ICommand showTappedPost { get; }
+        public ICommand profileOptions { get; }
+        public ICommand showProfileOptions { get; }
 
         #endregion public Attributes
 
@@ -115,6 +117,21 @@ namespace LoginRegistration.ViewModel
             cancelEditProfile = new Command(async () => await cancelEditProfileAsync());
             refreshProfile = new Command(async () => await refreshProfileAsync());
             showTappedPost = new Command<UserInteractionModel>(OnImageTapped);
+            showProfileOptions = new Command(async () => await MopupService.Instance.PushAsync(new ProfileOptionsPopup(this)));
+            profileOptions = new Command<string>(OnProfileOptionsPressed);
+        }
+
+        private async void OnProfileOptionsPressed(string parameter)
+        {
+            if (parameter == "editProfile")
+            {
+                await showEditProfileAsync();
+            }
+            else if (parameter == "logout")
+            {
+                await MopupService.Instance.PopAsync();
+                App.Current.MainPage = new MainPage();
+            }
         }
 
         private async void OnImageTapped(UserInteractionModel postDetail)

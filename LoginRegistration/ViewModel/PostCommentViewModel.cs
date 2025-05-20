@@ -258,6 +258,7 @@ namespace LoginRegistration.ViewModel
                             fullName = userDetail.fullName
                         });
                         await MopupService.Instance.PopAsync();
+                        await MopupService.Instance.PopAsync();
                     }
                 }
                 else

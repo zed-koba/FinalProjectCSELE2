@@ -76,7 +76,7 @@
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding showEditProfile}" />
+                                    <TapGestureRecognizer Command="{Binding showProfileOptions}" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>

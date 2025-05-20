@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="LoginRegistration.View.ProfileOptionsPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="ProfileOptionsPopup"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="True">
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Frame
+            Margin="0"
+            Padding="0,20,0,20"
+            BackgroundColor="#232226"
+            BorderColor="Transparent"
+            CornerRadius="12"
+            HasShadow="True"
+            VerticalOptions="StartAndExpand"
+            WidthRequest="190">
+            <VerticalStackLayout>
+                <Button
+                    BackgroundColor="#232226"
+                    BorderColor="Transparent"
+                    Command="{Binding profileOptions}"
+                    CommandParameter="editProfile"
+                    CornerRadius="0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Edit Profile"
+                    TextColor="White" />
+                <Button
+                    Margin="0,5,0,0"
+                    BackgroundColor="#232226"
+                    BorderColor="Transparent"
+                    Command="{Binding profileOptions}"
+                    CommandParameter="logout"
+                    CornerRadius="0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Logout"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</mopups:PopupPage>
