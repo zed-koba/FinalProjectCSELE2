@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="LoginRegistration.View.Post"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="Post"
+    BackgroundColor="#121312"
+    CloseWhenBackgroundIsClicked="False">
+
+    <mopups:PopupPage.Animation>
+        <anim:MoveAnimation
+            DurationIn="700"
+            EasingIn="Linear"
+            PositionIn="Bottom"
+            PositionOut="Top" />
+    </mopups:PopupPage.Animation>
+    <Grid>
+        <Image Aspect="AspectFill" Source="bg1.jpg" />
+        <FlexLayout
+            Padding="25"
+            Direction="Column"
+            HorizontalOptions="Start">
+            <Frame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="#FB3137"
+                BorderColor="Transparent"
+                CornerRadius="5"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="Start">
+                <HorizontalStackLayout Padding="6,6,10,6" Spacing="10">
+                    <Label
+                        FontFamily="FAsolid"
+                        FontSize="16"
+                        Text="&#xF104;"
+                        TextColor="White" />
+                    <Label
+                        FontSize="12"
+                        Text="Back to rots"
+                        TextColor="White"
+                        VerticalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding closeNewPost}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+            </Frame>
+            <Label
+                Margin="0,10,0,0"
+                FontAttributes="Bold"
+                FontFamily="PoppinsMedium"
+                FontSize="36"
+                Text="New Rot"
+                TextColor="White" />
+            <Label
+                Margin="0,15,0,0"
+                FontAttributes="None"
+                FontSize="12"
+                HorizontalOptions="End"
+                Text="0/500"
+                TextColor="#888888" />
+            <Frame
+                Margin="0"
+                Padding="5"
+                BackgroundColor="#1E1E23"
+                BorderColor="Transparent"
+                CornerRadius="5">
+                <Editor
+                    HeightRequest="200"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="What's on your brain?"
+                    PlaceholderColor="#888888"
+                    Text="{Binding GetCaption}"
+                    TextColor="White"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+            <Frame
+                Margin="0,10,0,0"
+                Padding="0"
+                BackgroundColor="#1E1E23"
+                BorderColor="Transparent"
+                CornerRadius="12"
+                VerticalOptions="Start">
+                <Grid
+                    Padding="10"
+                    ColumnDefinitions="*,Auto"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start">
+
+                    <Label
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding GetImageName}"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
+
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="#FB3137"
+                        Command="{Binding uploadAPhoto}"
+                        CornerRadius="12"
+                        HorizontalOptions="End"
+                        Text="Upload a photo"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+            <Button
+                Margin="0,10,0,0"
+                Padding="30,0,30,0"
+                BackgroundColor="#FB3137"
+                Command="{Binding addPost}"
+                CornerRadius="12"
+                HorizontalOptions="EndAndExpand"
+                Text="Rot"
+                TextColor="White" />
+        </FlexLayout>
+    </Grid>
+</mopups:PopupPage>

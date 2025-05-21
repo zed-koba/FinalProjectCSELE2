@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="LoginRegistration.View.EditProfile"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:anim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="EditProfile"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="True">
+    <Grid
+        HorizontalOptions="Center"
+        RowDefinitions="Auto, *"
+        VerticalOptions="Center">
+        <Border
+            Margin="0,0,0,-70"
+            HeightRequest="140"
+            HorizontalOptions="Center"
+            Stroke="White"
+            StrokeShape="{RoundRectangle CornerRadius=70}"
+            StrokeThickness="3"
+            VerticalOptions="Center"
+            WidthRequest="140"
+            ZIndex="99">
+            <Grid>
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="140"
+                    Source="{Binding NewAvatar}"
+                    WidthRequest="140">
+                    <Image.Clip>
+                        <RoundRectangleGeometry CornerRadius="70" Rect="0,0,140,140" />
+                    </Image.Clip>
+                </Image>
+                <Frame
+                    Padding="0"
+                    BackgroundColor="#73FFFFFF"
+                    BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding showChangeAvatar}" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Label
+                    FontFamily="FAsolid"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Text="&#xF56F;"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding showChangeAvatar}" />
+            </Border.GestureRecognizers>
+        </Border>
+        <Frame
+            Grid.Row="1"
+            Margin="0"
+            Padding="0"
+            BackgroundColor="#232226"
+            BorderColor="Transparent"
+            CornerRadius="10"
+            HeightRequest="567"
+            WidthRequest="327"
+            ZIndex="1">
+            <Grid>
+                <Image Aspect="AspectFill" Source="bg2.jpg" />
+                <VerticalStackLayout Padding="20,0,20,0" Spacing="10">
+                    <Label
+                        Margin="0,80,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsMedium"
+                        FontSize="24"
+                        HorizontalTextAlignment="Center"
+                        Text="Edit Profile"
+                        TextColor="White" />
+                    <Frame
+                        Margin="0"
+                        Padding="10"
+                        BackgroundColor="#1E1E23"
+                        BorderColor="Transparent"
+                        CornerRadius="12"
+                        VerticalOptions="StartAndExpand">
+                        <Grid ColumnDefinitions="*, 51" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                HorizontalTextAlignment="Center"
+                                Text="&#xF02B;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                            <Entry
+                                FontSize="16"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Full Name"
+                                PlaceholderColor="#888888"
+                                Text="{Binding NewFullName}"
+                                TextColor="White" />
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Margin="0"
+                        Padding="10"
+                        BackgroundColor="#1E1E23"
+                        BorderColor="Transparent"
+                        CornerRadius="12"
+                        VerticalOptions="StartAndExpand">
+                        <Grid ColumnDefinitions="*, 51" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                HorizontalTextAlignment="Center"
+                                Text="&#xF007;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                            <Entry
+                                FontSize="16"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Username"
+                                PlaceholderColor="#888888"
+                                Text="{Binding NewUsername}"
+                                TextColor="White" />
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Margin="0"
+                        Padding="10"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        CornerRadius="12"
+                        VerticalOptions="StartAndExpand">
+                        <Grid ColumnDefinitions="*, 51" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                HorizontalTextAlignment="Center"
+                                Text="&#xF0E0;"
+                                TextColor="#888888"
+                                VerticalTextAlignment="Center" />
+                            <Label
+                                FontSize="16"
+                                HorizontalOptions="FillAndExpand"
+                                Text="Email Address"
+                                TextColor="#888888" />
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Margin="0"
+                        Padding="10"
+                        BackgroundColor="#1E1E23"
+                        BorderColor="Transparent"
+                        CornerRadius="12"
+                        VerticalOptions="StartAndExpand">
+                        <Grid ColumnDefinitions="*, 51" ColumnSpacing="10">
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="FAsolid"
+                                FontSize="24"
+                                HorizontalTextAlignment="Center"
+                                Text="&#xF023;"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                            <Entry
+                                FontSize="16"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="True"
+                                Placeholder="Password"
+                                PlaceholderColor="#888888"
+                                Text="{Binding NewPassword}"
+                                TextColor="White" />
+                        </Grid>
+                    </Frame>
+                    <Button
+                        Margin="0,20,0,0"
+                        BackgroundColor="#FB3137"
+                        Command="{Binding updateProfile}"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsMedium"
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        Text="Save"
+                        WidthRequest="98" />
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Cancel"
+                        TextColor="White"
+                        TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding cancelEditProfile}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+    </Grid>
+</mopups:PopupPage>

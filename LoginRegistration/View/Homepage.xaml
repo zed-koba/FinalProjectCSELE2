@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginRegistration.View.Homepage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:local="clr-namespace:LoginRegistration.Features"
+    Title="Homepage"
+    BackgroundColor="#121312">
+    <ContentPage.Resources>
+        <local:TimeStampConverter x:Key="UnixToTimeConverter" />
+    </ContentPage.Resources>
+    <Grid
+        Margin="0,10,0,0"
+        Padding="15,15,15,0"
+        RowDefinitions="Auto, *"
+        RowSpacing="20">
+        <!--  Header  -->
+        <FlexLayout AlignItems="Center" JustifyContent="SpaceAround">
+            <Label
+                FlowDirection="LeftToRight"
+                FontAttributes="Bold"
+                FontFamily="OpenSansSemibold"
+                FontSize="24"
+                Text="Rots"
+                TextColor="White"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding refreshFeed}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="57"
+                Source="logo1.png"
+                WidthRequest="54" />
+            <Label
+                FontAttributes="Bold"
+                FontFamily="OpenSansSemibold"
+                FontSize="24"
+                Text="Profile"
+                TextColor="White">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </FlexLayout>
+
+        <!--  Post Section  -->
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding refreshFeed}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView>
+                <VerticalStackLayout>
+                    <Button
+                        Margin="0,0,0,15"
+                        BackgroundColor="#232226"
+                        Command="{Binding showNewPost}"
+                        CornerRadius="12"
+                        FontAttributes="None"
+                        FontSize="14"
+                        Text="Wanna rot?"
+                        TextColor="White" />
+
+                    <!--  Post Card Model  -->
+                    <CollectionView x:Name="collection" ItemsSource="{Binding allPosts}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0,0,0,10"
+                                    Padding="0"
+                                    BackgroundColor="#232226"
+                                    BorderColor="Transparent"
+                                    CornerRadius="12"
+                                    HasShadow="False">
+                                    <VerticalStackLayout
+                                        Padding="10"
+                                        HorizontalOptions="Fill"
+                                        Spacing="10"
+                                        VerticalOptions="FillAndExpand">
+                                        <FlexLayout JustifyContent="SpaceBetween">
+                                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                                <ffimageloading:CachedImage
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="24"
+                                                    LoadingPlaceholder="brainrotting.gif"
+                                                    Source="{Binding avatar}"
+                                                    WidthRequest="24">
+                                                    <ffimageloading:CachedImage.Clip>
+                                                        <RoundRectangleGeometry CornerRadius="12" Rect="0,0,24,24" />
+                                                    </ffimageloading:CachedImage.Clip>
+                                                </ffimageloading:CachedImage>
+                                                <Label
+                                                    FontSize="14"
+                                                    Text="{Binding fullName}"
+                                                    TextColor="White"
+                                                    VerticalTextAlignment="Center" />
+                                            </HorizontalStackLayout>
+                                        </FlexLayout>
+                                        <Frame
+                                            Margin="-15,0,-15,0"
+                                            Padding="0"
+                                            Background="Black"
+                                            BorderColor="Transparent"
+                                            CornerRadius="0"
+                                            HeightRequest="131">
+                                            <ffimageloading:CachedImage
+                                                Aspect="AspectFit"
+                                                HorizontalOptions="Center"
+                                                LoadingPlaceholder="brainrotting.gif"
+                                                Source="{Binding Posts.imageSource}"
+                                                VerticalOptions="Center" />
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                        <Label
+                                            FontSize="12"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding Posts.caption}"
+                                            TextColor="White"
+                                            VerticalOptions="StartAndExpand" />
+                                        <FlexLayout JustifyContent="SpaceBetween">
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label
+                                                    FontFamily="{Binding iconFont}"
+                                                    FontSize="24"
+                                                    Text="&#xF004;"
+                                                    TextColor="{Binding likeColor}"
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.likeAPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label
+                                                    FontSize="14"
+                                                    Text="{Binding Posts.like.Count}"
+                                                    TextColor="White"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    Margin="10,0,0,0"
+                                                    FontFamily="FAregular"
+                                                    FontSize="24"
+                                                    Text="&#xF075;"
+                                                    TextColor="White"
+                                                    VerticalTextAlignment="Center">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.showTappedPost, Source={x:Reference collection}}" CommandParameter="{Binding .}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label
+                                                    FontSize="14"
+                                                    Text="{Binding Posts.comments.Count}"
+                                                    TextColor="White"
+                                                    VerticalTextAlignment="Center" />
+                                            </HorizontalStackLayout>
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Posts.timeStamp, Converter={StaticResource UnixToTimeConverter}}"
+                                                TextColor="#888888" />
+                                        </FlexLayout>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

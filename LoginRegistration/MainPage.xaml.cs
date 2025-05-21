@@ -1,12 +1,8 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using LoginRegistration;
-using LoginRegistration.ViewModel;
+﻿using LoginRegistration.ViewModel;
 namespace LoginRegistration
 {
     public partial class MainPage : ContentPage
     {
-
         public MainPage()
         {
             InitializeComponent();
@@ -17,5 +13,4 @@ namespace LoginRegistration
             App.Current.MainPage = new View.Registration();
         }
     }
-
 }
