@@ -49,7 +49,8 @@
 
 ## 📚 Documentation
 For detailed information about **Mind Melt**'s architecture, features, and development process, check out the full documentation:
-👉 [**Read the full project documentation here**](Mind_Melt_Documentation.pdf)
+
+👉 [**Read the full project documentation here**](Mind%20Melt%20Documentation.pdf)
 
 📄 License
 This project is for educational and experimental purposes only.
