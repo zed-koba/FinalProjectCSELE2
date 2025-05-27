@@ -43,9 +43,9 @@
    git clone https://github.com/your-username/MindMelt.git
 
 🧠 Sample Post Ideas
-"tralalelo... I just poured coffee into my cereal."
-"If lasagna had thoughts, would it scream?"
-"Brain melted, came back stronger."
+- "tralalelo... I just poured coffee into my cereal."
+- "If lasagna had thoughts, would it scream?"
+- "Brain melted, came back stronger."
 
 ## 📚 Documentation
 For detailed information about **Mind Melt**'s architecture, features, and development process, check out the full documentation:
